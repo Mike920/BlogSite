@@ -1,0 +1,11 @@
+﻿
+@{
+    ViewBag.Title = "Blogs";
+}
+
+<h2>Blogs</h2>
+
+<h2>Selected blog</h2>
+<select ng-model="selectedBlog">
+    <option ng-repeat="blog in blogs" value="{{blog.Id}}">{{blog.Name}}</option>
+</select>

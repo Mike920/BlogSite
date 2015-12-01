@@ -1,0 +1,167 @@
+﻿@model Blog.ViewModels.CreateBlogViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "upload-form" })) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Blog</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UrlName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UrlName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UrlName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BlogCategoryId, "Category", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.BlogCategoryId,(SelectList)ViewBag.BlogCategoryId,"Select category...", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.BlogCategoryId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Miniature:</label>
+            @*<div class="col-md-12 text-info">Miniature will be resized to 300x200px</div>*@
+            <div class="col-md-5">
+                <span class="text-info">Miniature will be resized to 300x200</span>
+                @Html.HiddenFor(model => model.ImageUrl)
+                @Html.ValidationMessageFor(model => model.ImageUrl, "", new {@class = "text-danger"})
+                <div id="uploader">
+                    <p>Your browser doesn't have Flash, Silverlight or HTML5 support.</p>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-5" style="margin-left:0;">
+                <input type="button" id="submitUpload" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Styles {
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/themes/base/jquery-ui.css" type="text/css" />
+    <link href="~/Scripts/plupload/jquery.ui.plupload/css/jquery.ui.plupload.css" rel="stylesheet" />
+}
+@section Scripts {
+    @Scripts.Render(Bundles.Js.JqueryVal)
+    @Scripts.Render(Bundles.Js.JqueryUi)
+    @Scripts.Render(Bundles.Js.Plupload)
+
+    <script type="text/javascript">
+
+        //Enable validation of hidden fields
+        $.validator.setDefaults({
+            ignore: []
+        });
+
+        // Initialize the widget when the DOM is ready
+        $(function () {
+            var filesNames = [];
+
+            var uploader = $("#uploader").plupload({
+                // General settings
+                runtimes : 'html5,flash,silverlight,html4',
+                url : "/File/UploadTempFile",
+
+                // Maximum file size
+                max_file_size : '4mb',
+                max_file_count: 1,
+                multi_selection : false,
+                //chunk_size: '1mb',
+
+                // Resize images on clientside if we can
+                resize : {
+                    width : 200,
+                    height : 200,
+                    quality : 100,
+                    crop: false // crop to exact dimensions
+                },
+
+                // Specify what files to browse for
+                filters : [
+                    { title: "Image files", extensions: "jpg,gif,png" }
+                ],
+
+                // Rename files by clicking on their titles
+                rename: true,
+
+                // Sort files
+                sortable: true,
+
+                // Enable ability to drag'n'drop files onto the widget (currently only HTML5 supports that)
+                dragdrop: true,
+
+                // Views to activate
+                views: {
+                    list: true,
+                    thumbs: true, // Show thumbs
+                    active: 'thumbs'
+                },
+
+                // Flash settings
+                flash_swf_url : "~/Scripts/plupload/Moxie.swf",
+                // Silverlight settings
+                silverlight_xap_url: "~/Scripts/plupload/js/Moxie.xap",
+
+                init: {
+                    FilesAdded: function(){
+                        $('#ImageUrl').val('ok');
+                        $('#ImageUrl').valid();
+                    },
+                    FilesRemoved: function () {
+                        $('#ImageUrl').val('');
+                    },
+                    FileUploaded: function (up, file, info) {
+                        var response = $.parseJSON(info.response);
+                        //filesNames = filesNames.concat(response);
+                        $('#ImageUrl').val(response[0]);
+                        $('#ImageUrl').valid();
+
+                        $('#upload-form').submit();
+                    }
+                },
+                buttons: { browse: true, start: false, stop: false }
+
+            });
+
+            //customize upload button behavior
+            $('#submitUpload').click(function () {
+                var $form = $('#upload-form');
+                if ($form.valid()) {
+                    $('#submitUpload').val('Sending...');
+                    $('#submitUpload').attr("disabled", true);
+                    $("#uploader").plupload('start');
+                }
+            });
+
+        });
+    </script>
+}

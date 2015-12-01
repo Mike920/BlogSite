@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "DEMO purpose Email Link";
+}
+<h2>@ViewBag.Title.</h2>
+<p class="text-info">
+    In order to complete registration please check your email and confirm your email address.
+</p>
+<p>You can now create your first blog!</p>
+<p class="text-danger">
+    For DEMO only: You can click this link to confirm the email: <a href="@ViewBag.Link">link</a>
+    Please change this code to register an email service in IdentityConfig to send an email.
+</p>
+
+@Html.ActionLink("Create a blog","Create","Blog", null, new { @class = "btn btn-primary"})
