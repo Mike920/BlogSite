@@ -26,7 +26,7 @@ namespace Blog
 
             bundles.Add(new ScriptBundle(Bundles.Js.Bootstrap,"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js")
                 .Include("~/Scripts/bootstrap.js"));
-            bundles.Add(new ScriptBundle(Bundles.Js.Respond).Include(
+            bundles.Add(new ScriptBundle(Bundles.Js.Respond, "https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js").Include(
                       "~/Scripts/respond.js"));
 
 
@@ -49,11 +49,11 @@ namespace Blog
                 "~/Scripts/angular/angular.js"
                 ));
             bundles.Add(new ScriptBundle(Bundles.Js.AngularRoute,
-                "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js").Include(
+                "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.min.js").Include(
                 "~/Scripts/angular/angular-route.js"
                 ));
             bundles.Add(new ScriptBundle(Bundles.Js.AngularResource,
-                "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js").Include(
+                "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-resource.min.js").Include(
                 "~/Scripts/angular/angular-resource.js"
                 ));
    
@@ -120,8 +120,6 @@ namespace Blog
             public const string AngularApp = "~/js/AngularApp";
 
             public const string AutoNgModel = "~/js/AutoNgModel";
-            /*public const string AngularControllers = "~/js/AngularControllers";
-            public const string AngularServices = "~/js/AngularServices";*/
 
         }
 
