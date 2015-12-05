@@ -1117,6 +1117,8 @@
     <Content Include="Scripts\MainSite\slider.js" />
     <Content Include="Scripts\MainSite\wow.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\pace-flash.css" />
+    <Content Include="Scripts\pace.min.js" />
     <Content Include="Scripts\plupload\i18n\ar.js" />
     <Content Include="Scripts\plupload\i18n\bs.js" />
     <Content Include="Scripts\plupload\i18n\ca.js" />
@@ -1203,8 +1205,8 @@
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\NgPartialsController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
-    <Compile Include="Controllers\SpaPartialsController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
     <Compile Include="Controllers\ValidationController.cs" />
@@ -1306,6 +1308,7 @@
     <Folder Include="MediaData\" />
     <Folder Include="Temp\" />
     <Folder Include="Views\File\" />
+    <Folder Include="Views\NgPartials\" />
     <Folder Include="Views\Validation\" />
   </ItemGroup>
   <PropertyGroup>

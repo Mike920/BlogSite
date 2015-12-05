@@ -29,6 +29,8 @@ namespace Blog
             bundles.Add(new ScriptBundle(Bundles.Js.Respond).Include(
                       "~/Scripts/respond.js"));
 
+            bundles.Add(new ScriptBundle(Bundles.Js.Pace).Include(
+                      "~/Scripts/pace.min.js"));
 
             bundles.Add(new ScriptBundle(Bundles.Js.Plupload)
                 {Orderer = new NonOrderingBundleOrderer()}
@@ -110,6 +112,7 @@ namespace Blog
             public const string Respond = "~/js/Respond";
             public const string Plupload = "~/js/Plupload";
             public const string MainSite = "~/js/MainSite";
+            public const string Pace = "~/js/Pace";
 
             public const string AdminPanel = "~/js/AdminPanel";
 
@@ -132,6 +135,7 @@ namespace Blog
             public const string MainSite = "~/css/MainSite";
             public const string AdminPanel = "~/css/AdminPanel";
             public const string Skin = "~/css/Skin";
+
         }
     }
 

@@ -14,13 +14,6 @@ namespace Blog.Controllers
             return View();
         }
 
-        public ActionResult Dashboard()
-        {
-            return View();
-        }
-        public ActionResult EditBlog()
-        {
-            return View();
-        }
+
     }
 }

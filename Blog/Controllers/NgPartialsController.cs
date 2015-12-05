@@ -6,14 +6,15 @@ using System.Web.Mvc;
 
 namespace Blog.Controllers
 {
-    public class SpaPartialsController : Controller
+    public class NgPartialsController : Controller
     {
-        // GET: SpaPartials
-
-        //Use adminpanel instead
-        /*public ActionResult EditBlog()
+        public ActionResult Dashboard()
         {
             return View();
-        }*/
+        }
+        public ActionResult EditBlog()
+        {
+            return View();
+        }
     }
 }

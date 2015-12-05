@@ -3,7 +3,7 @@
 
 var app = angular.module('app', ['ngResource', 'ngRoute']);
 
-app.config(['$routeProvider', function ($routeProvider) {
+app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
 
 
     $routeProvider.when('/BlogSettings/:id', {
@@ -11,21 +11,14 @@ app.config(['$routeProvider', function ($routeProvider) {
         controller: 'BlogSettingsCtrl',
         caseInsensitiveMatch: true
     });
-/*    $routeProvider.when('/simple', {
-        templateUrl: 'app/simple/simple.html',
-        controller: 'simpleCtrl',
-        caseInsensitiveMatch: true
-    });
-    $routeProvider.when('/advanced', {
-        templateUrl: 'app/advanced/advanced.html',
-        controller: 'advancedCtrl',
-        caseInsensitiveMatch: true
-    });*/
     $routeProvider.otherwise({
         templateUrl: '/AdminPanel/Dashboard',
         controller: 'DashboardCtrl',
         caseInsensitiveMatch: true
     });
+
+    // use the HTML5 History API
+    $locationProvider.html5Mode(true);
 }]);
 
 app.run([function () {
