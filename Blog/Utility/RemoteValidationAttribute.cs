@@ -63,8 +63,22 @@ namespace Blog.Utility
             /// <returns></returns>
             protected override ValidationResult IsValid(object value, ValidationContext validationContext)
             {
-                // Find the controller passed in constructor
-                var controller = GetControllerList().FirstOrDefault(x => x.Name == string.Format("{0}Controller", this.RouteData["controller"]));
+                string[] additionalFields = this.AdditionalFields.Split(',');
+
+                List<object> propValues = new List<object>();
+                propValues.Add(value);
+                foreach (string additionalField in additionalFields)
+                {
+                    PropertyInfo prop = validationContext.ObjectType.GetProperty(additionalField);
+                    if (prop != null)
+                    {
+                        object propValue = prop.GetValue(validationContext.ObjectInstance, null);
+                        propValues.Add(propValue);
+                    }
+                }
+
+            // Find the controller passed in constructor
+            var controller = GetControllerList().FirstOrDefault(x => x.Name == string.Format("{0}Controller", this.RouteData["controller"]));
                 if (controller == null)
                 {
                     // Default behavior of IsValid when no controller is found.
@@ -83,7 +97,7 @@ namespace Blog.Utility
                 var instance = Activator.CreateInstance(controller);
 
                 // invoke the method on the controller with value
-                var result = (JsonResult)mi.Invoke(instance, new object[] { value });
+                var result = (JsonResult)mi.Invoke(instance, propValues.ToArray());
 
                 // Return success or the error message string from CustomRemoteAttribute
                 return result.Data.ToString() == "True" ? ValidationResult.Success : new ValidationResult(result.Data.ToString());

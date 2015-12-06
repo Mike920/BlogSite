@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace Blog.Controllers
 {
+    [Authorize]
     public class NgPartialsController : Controller
     {
         public ActionResult Dashboard()

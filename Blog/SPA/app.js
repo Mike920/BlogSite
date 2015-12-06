@@ -7,12 +7,12 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
 
 
     $routeProvider.when('/BlogSettings/:id', {
-        templateUrl: '/AdminPanel/EditBlog',
+        templateUrl: '/NgPartials/EditBlog',
         controller: 'BlogSettingsCtrl',
         caseInsensitiveMatch: true
     });
     $routeProvider.otherwise({
-        templateUrl: '/AdminPanel/Dashboard',
+            templateUrl: '/NgPartials/Dashboard',
         controller: 'DashboardCtrl',
         caseInsensitiveMatch: true
     });

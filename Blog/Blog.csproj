@@ -20,6 +20,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -172,6 +173,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Blog.publish.xml" />
     <Content Include="Content\AdminPanel\AdminLTE.css">
       <DependentUpon>AdminLTE.less</DependentUpon>
     </Content>
@@ -356,6 +358,11 @@
     <Content Include="Scripts\angular\angular-aria.min.js.map" />
     <Content Include="Scripts\angular\angular-animate.min.js.map" />
     <Content Include="Scripts\angular\angular.min.js.map" />
+    <Content Include="fonts\ionicons.eot" />
+    <Content Include="fonts\ionicons.svg" />
+    <Content Include="fonts\ionicons.ttf" />
+    <Content Include="fonts\ionicons.woff" />
+    <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-dj.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-er.js" />
@@ -1117,7 +1124,7 @@
     <Content Include="Scripts\MainSite\slider.js" />
     <Content Include="Scripts\MainSite\wow.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\pace-flash.css" />
+    <Content Include="Scripts\pace-theme.css" />
     <Content Include="Scripts\pace.min.js" />
     <Content Include="Scripts\plupload\i18n\ar.js" />
     <Content Include="Scripts\plupload\i18n\bs.js" />
@@ -1187,7 +1194,9 @@
     <Content Include="SPA\Controllers\BlogSettings.js" />
     <Content Include="SPA\Controllers\Dashboard.js" />
     <Content Include="SPA\Services\BlogService.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\AutoMapperConfig.cs" />
@@ -1293,8 +1302,9 @@
     <Content Include="Views\Blog\Edit.cshtml" />
     <Content Include="Scripts\version.json" />
     <Content Include="Views\AdminPanel\Index.cshtml" />
-    <Content Include="Views\AdminPanel\EditBlog.cshtml" />
-    <Content Include="Views\AdminPanel\Dashboard.cshtml" />
+    <Content Include="Views\NgPartials\EditBlog.cshtml" />
+    <Content Include="Views\NgPartials\Dashboard.cshtml" />
+    <Content Include="Views\NgPartials\_ViewStart.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1308,7 +1318,6 @@
     <Folder Include="MediaData\" />
     <Folder Include="Temp\" />
     <Folder Include="Views\File\" />
-    <Folder Include="Views\NgPartials\" />
     <Folder Include="Views\Validation\" />
   </ItemGroup>
   <PropertyGroup>
