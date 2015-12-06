@@ -99,6 +99,8 @@ namespace Blog
 
             bundles.Add(new LessBundle(Bundles.Css.AdminPanel).Include("~/Content/AdminPanel/AdminLTE.less"));
             bundles.Add(new LessBundle(Bundles.Css.Skin).Include("~/Content/AdminPanel/skin-blue.less"));
+            bundles.Add(new LessBundle(Bundles.Css.AdminPanelCustom).Include("~/Content/AdminPanel/Custom.css"));
+
         }
     }
 
@@ -134,6 +136,7 @@ namespace Blog
             public const string Bootstrap = "~/css/Bootstrap";
             public const string MainSite = "~/css/MainSite";
             public const string AdminPanel = "~/css/AdminPanel";
+            public const string AdminPanelCustom = "~/css/AdminPanelCustom";
             public const string Skin = "~/css/Skin";
 
         }

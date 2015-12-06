@@ -173,13 +173,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Blog.publish.xml" />
     <Content Include="Content\AdminPanel\AdminLTE.css">
       <DependentUpon>AdminLTE.less</DependentUpon>
     </Content>
     <Content Include="Content\AdminPanel\AdminLTE.min.css">
       <DependentUpon>AdminLTE.css</DependentUpon>
     </Content>
+    <Content Include="Content\AdminPanel\Custom.css" />
     <Content Include="Content\AdminPanel\skin-blue.css">
       <DependentUpon>skin-blue.less</DependentUpon>
     </Content>

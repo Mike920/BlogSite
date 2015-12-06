@@ -6,7 +6,7 @@
 
 <h2>Edit</h2>
 
-<form id="upload-form" method="post" ng-submit="submit($event)" novalidate="novalidate">
+<form id="upload-form"   novalidate="novalidate">
     <div class="form-horizontal">
         <h4>Blog</h4>
         <hr/>
@@ -59,13 +59,13 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default"/>
+                <input type="button" ng-click="submit()" value="Save" class="btn btn-default"/>
             </div>
         </div>
     </div>
 </form>
 
-
+@Scripts.Render(Bundles.Js.JqueryVal)
 @Scripts.Render(Bundles.Js.AutoNgModel)
 @*<script>
     //disable ignoring validation of id field
