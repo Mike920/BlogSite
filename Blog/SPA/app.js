@@ -11,10 +11,23 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
         controller: 'BlogSettingsCtrl',
         caseInsensitiveMatch: true
     });
-    $routeProvider.otherwise({
-            templateUrl: '/NgPartials/Dashboard',
+    $routeProvider.when('/Posts/', {
+        templateUrl: '/NgPartials/Posts',
+        controller: 'PostCtrl',
+        caseInsensitiveMatch: true
+    });
+    $routeProvider.when('/Posts/Add', {
+        templateUrl: '/NgPartials/PostAdd',
+        controller: 'PostAddCtrl',
+        caseInsensitiveMatch: true
+    });
+    $routeProvider.when('/Dashboard', {
+        templateUrl: '/NgPartials/Dashboard',
         controller: 'DashboardCtrl',
         caseInsensitiveMatch: true
+    });
+    $routeProvider.otherwise({
+        redirectTo: '/Dashboard'
     });
 
     // use the HTML5 History API

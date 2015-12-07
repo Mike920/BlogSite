@@ -17,5 +17,10 @@ namespace Blog.Controllers
         {
             return View();
         }
+
+        public ActionResult PostAdd()
+        {
+            return View();
+        }
     }
 }

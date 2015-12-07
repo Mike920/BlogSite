@@ -11,8 +11,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-    @* <script data-pace-options='{ "ajax": false,"eventLag": false }' src="~/Scripts/pace.min.js"></script>*@
-    <script src="~/Scripts/pace.min.js"></script>
+    <script>paceOptions = {ajax: {trackMethods: ['GET', 'POST', 'DELETE', 'PUT', 'PATCH']}}</script>
+    <script  src="~/Scripts/pace.min.js"></script>
     <link href="~/Scripts/pace-theme.css" rel="stylesheet" />
     <!-- Bootstrap 3.3.5 -->
     @Styles.Render(Bundles.Css.Bootstrap)
@@ -257,10 +257,10 @@ desired effect
                     <li class="active"><a href="BlogSettings/1"><i class="fa fa-link"></i> <span>Blog Settings</span></a></li>
                     <li><a href="Dashboard"><i class="fa fa-link"></i> <span>Dashboard</span></a></li>
                     <li class="treeview">
-                        <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span> <i class="fa fa-angle-left pull-right"></i></a>
+                        <a href="#"><i class="fa fa-link"></i> <span>Posts</span> <i class="fa fa-angle-left pull-right"></i></a>
                         <ul class="treeview-menu">
-                            <li><a href="#">Link in level 2</a></li>
-                            <li><a href="#">Link in level 2</a></li>
+                            <li><a href="#">Posts</a></li>
+                            <li><a href="Posts/Add">Add post</a></li>
                         </ul>
                     </li>
                 </ul><!-- /.sidebar-menu -->

@@ -2,31 +2,30 @@
 
 angular
     .module('app')
-    .controller('BlogSettingsCtrl', BlogSettingsCtrl);
+    .controller('PostCtrl', PostCtrl);
 
-BlogSettingsCtrl.$inject = ['$scope', '$routeParams', 'BlogService'];
+PostCtrl.$inject = ['$scope', '$routeParams', 'PostService'];
 
 
-function BlogSettingsCtrl($scope, $routeParams, BlogService) {
+function PostCtrl($scope, $routeParams, PostService) {
 
     $scope.loading = true;
 
-    BlogService.get({ id: $routeParams.id },
+    PostService.get({ id: $routeParams.id },
         function (model) {
             $scope.model = model;
             $scope.loading = false;
         },
         function(error) {
-            $('#statusBox').remove();
-            var status = $('<div id="statusBox" class="alert alert-error" role="alert">Connection error.</div>').hide().fadeIn('normal');
-            $('#upload-form').prepend(status);
+            $('#upload-form').prepend();
             $scope.loading = false;
         });
+    PostService.query();
 
     $scope.submit = function () {
         if ($('#upload-form').valid()) {
             $scope.loading = true;
-            BlogService.update({ id: $scope.model.Id }, $scope.model,
+            PostService.update({ id: $scope.model.Id }, $scope.model,
                 function (success) {
                     $('#statusBox').remove();
                     var status = $('<div id="statusBox" class="alert alert-success" role="alert">Changes have been saved.</div>').hide().fadeIn('normal');

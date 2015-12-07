@@ -188,6 +188,9 @@
     </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\header-bg.gif" />
+    <Content Include="Content\images\icons.png" />
+    <Content Include="Content\images\resize.gif" />
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\MainSite\animate.css" />
     <Content Include="Content\MainSite\Custom.css" />
@@ -232,6 +235,7 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\tinyeditor.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\AdminPanel\app.js" />
     <Content Include="Scripts\AdminPanel\app.min.js" />
@@ -1126,6 +1130,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\pace-theme.css" />
     <Content Include="Scripts\pace.min.js" />
+    <Content Include="Scripts\packed.js" />
     <Content Include="Scripts\plupload\i18n\ar.js" />
     <Content Include="Scripts\plupload\i18n\bs.js" />
     <Content Include="Scripts\plupload\i18n\ca.js" />
@@ -1190,9 +1195,13 @@
     <Content Include="Scripts\plupload\plupload.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\tinyeditor.js" />
     <Content Include="SPA\app.js" />
+    <Content Include="SPA\Controllers\PostAdd.js" />
+    <Content Include="SPA\Controllers\Post.js" />
     <Content Include="SPA\Controllers\BlogSettings.js" />
     <Content Include="SPA\Controllers\Dashboard.js" />
+    <Content Include="SPA\Services\PostService .js" />
     <Content Include="SPA\Services\BlogService.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -1209,6 +1218,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminPanelController.cs" />
     <Compile Include="Controllers\Api\BlogsController.cs" />
+    <Compile Include="Controllers\Api\PostsController.cs" />
     <Compile Include="Controllers\Blog2Controller.cs" />
     <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\FileController.cs" />
@@ -1241,6 +1251,7 @@
     <Compile Include="ViewModels\Blog\CreateBlogViewModel.cs" />
     <Compile Include="ViewModels\Blog\EditBlogViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
+    <Compile Include="ViewModels\Post\CreatePost.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -1305,6 +1316,7 @@
     <Content Include="Views\NgPartials\EditBlog.cshtml" />
     <Content Include="Views\NgPartials\Dashboard.cshtml" />
     <Content Include="Views\NgPartials\_ViewStart.cshtml" />
+    <Content Include="Views\NgPartials\PostAdd.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
