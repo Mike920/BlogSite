@@ -1201,6 +1201,7 @@
     <Content Include="SPA\Controllers\Post.js" />
     <Content Include="SPA\Controllers\BlogSettings.js" />
     <Content Include="SPA\Controllers\Dashboard.js" />
+    <Content Include="SPA\Services\PostCategoryService.js" />
     <Content Include="SPA\Services\PostService .js" />
     <Content Include="SPA\Services\BlogService.js" />
     <Content Include="Web.config">
@@ -1218,6 +1219,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminPanelController.cs" />
     <Compile Include="Controllers\Api\BlogsController.cs" />
+    <Compile Include="Controllers\Api\PostCategoriesController.cs" />
     <Compile Include="Controllers\Api\PostsController.cs" />
     <Compile Include="Controllers\Blog2Controller.cs" />
     <Compile Include="Controllers\BlogController.cs" />

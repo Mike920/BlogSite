@@ -4,14 +4,24 @@ angular
     .module('app')
     .controller('PostAddCtrl', PostAddCtrl);
 
-PostAddCtrl.$inject = ['$scope', '$routeParams', 'PostService'];
+PostAddCtrl.$inject = ['$scope', '$routeParams', 'PostService', 'PostCategoryService'];
 
 
-function PostAddCtrl($scope, $routeParams, PostService) {
+function PostAddCtrl($scope, $routeParams, PostService, PostCategoryService) {
 
-    $scope.loading = false;
+    $scope.loading = true;
 
- 
+    PostCategoryService.query(
+        function (model) {
+            $scope.model = model;
+            $scope.loading = false;
+        },
+        function (error) {
+            $('#statusBox').remove();
+            var status = $('<div id="statusBox" class="alert alert-error" role="alert">Connection error.</div>').hide().fadeIn('normal');
+            $('#upload-form').prepend(status);
+            $scope.loading = false;
+        });
 
     $scope.submit = function () {
         if ($('#upload-form').valid()) {

@@ -11,7 +11,6 @@ namespace Blog.Models
     {
         public PostCategory()
         {
-            Blogs = new List<Blog>();
             Posts = new List<Post>();
         }
 
@@ -19,8 +18,8 @@ namespace Blog.Models
         [Required]
         public  string Name { get; set; }
 
-       // public  string Description { get; set; }
-        public virtual ICollection<Blog> Blogs { get; set; }
+        public int BlogId { get; set; }
+        public virtual Blog Blog { get; set; }
         public virtual ICollection<Post> Posts
         { get; set; }
 

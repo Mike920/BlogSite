@@ -18,15 +18,17 @@ namespace Blog.Models
             Database.SetInitializer(new ApplicationDbInitializer());
         }
 
-        public DbSet<Blog> Blogs { get; set; }
+       
 
         public static BlogDbContext Create()
         {
             return new BlogDbContext();
         }
-        
+
+         public DbSet<Blog> Blogs { get; set; }
         public System.Data.Entity.DbSet<BlogCategory> BlogCategories { get; set; }
 
         public System.Data.Entity.DbSet<Models.Post> Posts { get; set; }
+        public System.Data.Entity.DbSet<PostCategory> PostCategories { get; set; }
     }
 }

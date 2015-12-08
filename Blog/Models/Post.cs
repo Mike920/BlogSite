@@ -36,7 +36,7 @@ namespace Blog.Models
         [ScaffoldColumn(false)]
         public  DateTime? Modified { get; set; }
         [ScaffoldColumn(false)]
-        public string BlogId { get; set; }
+        public int BlogId { get; set; }
         public virtual Blog Blog { get; set; }
         [Required]
         public string CategoryId { get; set; }
@@ -47,13 +47,5 @@ namespace Blog.Models
         { get; set; }
 
 
-        public string UrlPart
-        {
-            get
-            {
-                //todo convert title to some url friendly text
-                throw new NotImplementedException();
-            }
-        }
     }
 }
