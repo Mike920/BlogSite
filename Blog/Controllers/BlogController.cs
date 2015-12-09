@@ -16,6 +16,7 @@ using Microsoft.AspNet.Identity;
 
 namespace Blog.Controllers
 {
+    [Authorize]
     public class BlogController : Controller
     {
         private BlogDbContext db = new BlogDbContext();
@@ -32,6 +33,7 @@ namespace Blog.Controllers
         }
 
         // GET: Blog
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View();

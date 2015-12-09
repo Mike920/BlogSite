@@ -12,8 +12,8 @@ function PostAddCtrl($scope, $routeParams, PostService, PostCategoryService) {
     $scope.loading = true;
 
     PostCategoryService.query(
-        function (model) {
-            $scope.model = model;
+        function (categories) {
+            $scope.categories = categories;
             $scope.loading = false;
         },
         function (error) {

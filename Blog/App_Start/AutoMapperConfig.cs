@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Blog.Models;
 using Blog.ViewModels;
 
 namespace Blog
@@ -14,6 +15,7 @@ namespace Blog
             AutoMapper.Mapper.CreateMap<CreateBlogViewModel, Models.Blog>();
             AutoMapper.Mapper.CreateMap<Models.Blog, EditBlogViewModel>();
             AutoMapper.Mapper.CreateMap<EditBlogViewModel, Models.Blog>();
+            AutoMapper.Mapper.CreateMap<PostCategory, EditPostCategory>();
         }
     }
 }

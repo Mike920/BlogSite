@@ -37,6 +37,9 @@ namespace Blog.Services
             blog.ImageUrl = ServerTools.RelativePath(imageDestinationPath);
                 
             _db.Blogs.Add(blog);
+
+            var postCategory = new PostCategory {Id = 1, Name = "General", BlogId = blog.Id};
+            _db.PostCategories.Add(postCategory);
             _db.SaveChanges();
             return true;
         }

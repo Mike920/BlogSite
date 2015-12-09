@@ -116,10 +116,6 @@ namespace Blog.Models
                 new BlogCategory { Id = 2, Name = "Entertainment" }
                 );
 
-            context.PostCategories.AddOrUpdate(
-                new PostCategory{Id = 1, Name = "General"});
-
-            base.Seed(context);
         }
 
         //Create User=Admin@Admin.com with password=Admin@123456 in the Admin role        
