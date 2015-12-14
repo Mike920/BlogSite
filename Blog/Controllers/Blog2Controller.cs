@@ -49,7 +49,7 @@ namespace Blog.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,UrlName,Description,ImageUrl,BlogCategoryId,UserId")] Models.Blog blog)
+        public ActionResult Create([Bind(Include = "Id,Name,UrlName,Description,ImageUrl,CategoryId,UserId")] Models.Blog blog)
         {
             if (ModelState.IsValid)
             {
@@ -58,7 +58,7 @@ namespace Blog.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.BlogCategoryId = new SelectList(db.BlogCategories, "Id", "Name", blog.BlogCategoryId);
+            ViewBag.BlogCategoryId = new SelectList(db.BlogCategories, "Id", "Name", blog.CategoryId);
             ViewBag.UserId = new SelectList(db.Users, "Id", "Email", blog.UserId);
             return View(blog);
         }
@@ -75,7 +75,7 @@ namespace Blog.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.BlogCategoryId = new SelectList(db.BlogCategories, "Id", "Name", blog.BlogCategoryId);
+            ViewBag.BlogCategoryId = new SelectList(db.BlogCategories, "Id", "Name", blog.CategoryId);
             ViewBag.UserId = new SelectList(db.Users, "Id", "Email", blog.UserId);
             return View(blog);
         }
@@ -85,7 +85,7 @@ namespace Blog.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,UrlName,Description,ImageUrl,BlogCategoryId,UserId")] Models.Blog blog)
+        public ActionResult Edit([Bind(Include = "Id,Name,UrlName,Description,ImageUrl,CategoryId,UserId")] Models.Blog blog)
         {
             if (ModelState.IsValid)
             {
@@ -93,7 +93,7 @@ namespace Blog.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.BlogCategoryId = new SelectList(db.BlogCategories, "Id", "Name", blog.BlogCategoryId);
+            ViewBag.BlogCategoryId = new SelectList(db.BlogCategories, "Id", "Name", blog.CategoryId);
             ViewBag.UserId = new SelectList(db.Users, "Id", "Email", blog.UserId);
             return View(blog);
         }

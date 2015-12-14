@@ -40,7 +40,7 @@ namespace Blog.Models
         public virtual Blog Blog { get; set; }
         [Required]
         public string CategoryId { get; set; }
-        public virtual PostCategory PostCategory
+        public virtual PostCategory Category
         { get; set; }
 
         public virtual ICollection<Tag> Tags

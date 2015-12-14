@@ -46,13 +46,13 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.BlogCategoryId, "BlogCategoryId", htmlAttributes: new {@class = "control-label col-md-2"})
+            @Html.LabelFor(model => model.CategoryId, "CategoryId", htmlAttributes: new {@class = "control-label col-md-2"})
             <div class="col-md-10">
                 @*
-                    @Html.DropDownList("BlogCategoryId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control" })
                 *@
-                @Html.EditorFor(model => model.BlogCategoryId, new {htmlAttributes = new {@class = "form-control"}})
-                @Html.ValidationMessageFor(model => model.BlogCategoryId, "", new {@class = "text-danger"})
+                @Html.EditorFor(model => model.CategoryId, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.CategoryId, "", new {@class = "text-danger"})
             </div>
         </div>
 

@@ -24,7 +24,7 @@ namespace Blog.ViewModels
         public string Description { get; set; }
 
         [Required]
-        public int BlogCategoryId { get; set; }
+        public int CategoryId { get; set; }
 
         [Required]
         public string ImageUrl { get; set; }

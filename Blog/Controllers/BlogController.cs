@@ -54,7 +54,7 @@ namespace Blog.Controllers
             if(_service.CreateBlog(model, currentUserId))
                 return RedirectToAction("Index","AdminPanel");
 
-            ViewBag.BlogCategoryId = new SelectList(db.BlogCategories, "BlogCategoryId", "BlogCategoryId");
+            ViewBag.BlogCategoryId = new SelectList(db.BlogCategories, "CategoryId", "CategoryId");
             return View(model);
         }
 
@@ -73,7 +73,7 @@ namespace Blog.Controllers
 
             var blogViewModel = Mapper.Map<EditBlogViewModel>(blog);
 
-            ViewBag.BlogCategoryId = new SelectList(db.BlogCategories, "Id", "Name", blog.BlogCategoryId);
+            ViewBag.BlogCategoryId = new SelectList(db.BlogCategories, "Id", "Name", blog.CategoryId);
             return View(blogViewModel);
         }
 
@@ -82,7 +82,7 @@ namespace Blog.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,UrlName,Description,ImageUrl,BlogCategoryId,UserId")] Models.Blog blog)
+        public ActionResult Edit([Bind(Include = "Id,Name,UrlName,Description,ImageUrl,CategoryId,UserId")] Models.Blog blog)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +90,7 @@ namespace Blog.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.BlogCategoryId = new SelectList(db.BlogCategories, "Id", "Name", blog.BlogCategoryId);
+            ViewBag.BlogCategoryId = new SelectList(db.BlogCategories, "Id", "Name", blog.CategoryId);
             ViewBag.UserId = new SelectList(db.Users, "Id", "Email", blog.UserId);
             return View(Mapper.Map < EditBlogViewModel > (blog));
         }

@@ -38,17 +38,19 @@ namespace Blog.Services
             blog.ImageUrl = ServerTools.RelativePath(imageDestinationPath);
                 
             _db.Blogs.Add(blog);
+            _db.SaveChanges();
 
-            var user =_db.Users.Find(userId);
+            var postCategory = new PostCategory { Id = 1, Name = "General", BlogId = blog.Id };
+            _db.PostCategories.Add(postCategory);
+
+            var user = _db.Users.Find(userId);
             if (user.CurrentBlogId == null)
             {
                 user.CurrentBlogId = blog.Id;
                 _db.Entry(user).State = EntityState.Modified;
             }
-
-            var postCategory = new PostCategory {Id = 1, Name = "General", BlogId = blog.Id};
-            _db.PostCategories.Add(postCategory);
             _db.SaveChanges();
+
             return true;
         }
 
