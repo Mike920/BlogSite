@@ -10,6 +10,12 @@ namespace Blog
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+               name: "Posts",
+               url: "Blog/{blogName}/{postId}/{postName}",
+               defaults: new { controller = "Posts", action = "Details", postName="" }
+           );
+
+            routes.MapRoute(
                name: "AdminPanel",
                url: "AdminPanel/{*.}",
                defaults: new { controller = "AdminPanel", action = "Index" }

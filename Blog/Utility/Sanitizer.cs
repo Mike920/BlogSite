@@ -5,11 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
-using HtmlAgilityPack;
 
 namespace Blog.Utility
 {
-    public class HtmlSanitizer
+   /* public class HtmlSanitizer
     {
 
         public HashSet<string> BlackList = new HashSet<string>() 
@@ -139,5 +138,5 @@ namespace Blog.Utility
                 }
             }
         }
-    }
+    }*/
 }

@@ -93,8 +93,6 @@ namespace Blog.Controllers.Api
 
             postModel.BlogId = (int)CurrentUser.CurrentBlogId;
             postModel.UrlName = GenerateUrlName(postModel.Title);
-            postModel.Content = HtmlSanitizer.SanitizeHtml(postModel.Content);
-            //todo sanitize content
             //todo create tags
 
             db.Posts.Add(postModel);

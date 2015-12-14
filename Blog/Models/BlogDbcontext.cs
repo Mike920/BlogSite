@@ -28,7 +28,7 @@ namespace Blog.Models
          public DbSet<Blog> Blogs { get; set; }
         public System.Data.Entity.DbSet<BlogCategory> BlogCategories { get; set; }
 
-        public System.Data.Entity.DbSet<Models.Post> Posts { get; set; }
+        public System.Data.Entity.DbSet<Post> Posts { get; set; }
         public System.Data.Entity.DbSet<PostCategory> PostCategories { get; set; }
     }
 }
