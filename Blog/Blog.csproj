@@ -1235,6 +1235,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Utility\RemoteValidationAttribute.cs" />
+    <Compile Include="Utility\Sanitizer.cs" />
     <Compile Include="Utility\ServerTools.cs" />
     <Compile Include="Models\Blog.cs" />
     <Compile Include="Models\BlogCategory.cs" />

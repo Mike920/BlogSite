@@ -27,11 +27,11 @@ namespace Blog.Models
         [DataType(DataType.MultilineText)][Required][AllowHtml]
         public  string Content { get; set; }
 
-        [ScaffoldColumn(false)]
+        [Display(Name = "Publish")]
         public  bool Published { get; set; }
 
         [ScaffoldColumn(false)]
-        public  DateTime PublishDate { get; set; }
+        public  DateTime? PublishDate { get; set; }
 
         [ScaffoldColumn(false)]
         public  DateTime? Modified { get; set; }

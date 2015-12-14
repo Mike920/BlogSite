@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -37,6 +38,13 @@ namespace Blog.Services
             blog.ImageUrl = ServerTools.RelativePath(imageDestinationPath);
                 
             _db.Blogs.Add(blog);
+
+            var user =_db.Users.Find(userId);
+            if (user.CurrentBlogId == null)
+            {
+                user.CurrentBlogId = blog.Id;
+                _db.Entry(user).State = EntityState.Modified;
+            }
 
             var postCategory = new PostCategory {Id = 1, Name = "General", BlogId = blog.Id};
             _db.PostCategories.Add(postCategory);

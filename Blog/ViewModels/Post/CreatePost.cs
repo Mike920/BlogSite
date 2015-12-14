@@ -21,21 +21,13 @@ namespace Blog.ViewModels
         [Required]
         public  string Title { get; set; }
 
-        //Generate dynamically
-        [Required][ScaffoldColumn(false)]
-        public string UrlName { get; set; }
 
-        [DataType(DataType.MultilineText)][Required][AllowHtml]
+        [Required][AllowHtml]
         public  string Content { get; set; }
 
-        [ScaffoldColumn(false)]
+        [Display(Name = "Publish")]
         public  bool Published { get; set; }
 
-        [ScaffoldColumn(false)]
-        public  DateTime PublishDate { get; set; }
-
-        [ScaffoldColumn(false)]
-        public  DateTime? Modified { get; set; }
         [ScaffoldColumn(false)]
         public string BlogId { get; set; }
         [Required]
