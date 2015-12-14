@@ -1,61 +1,143 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using HtmlAgilityPack;
 
 namespace Blog.Utility
 {
-  /*  public class Sanitizer
+    public class HtmlSanitizer
     {
-        private static AjaxControlToolkit.HtmlEditor.Sanitizer.DefaultHtmlSanitizer sanitizer = new AjaxControlToolkit.HtmlEditor.Sanitizer.DefaultHtmlSanitizer();
-        
-        private static Dictionary<string, string[]> elementWhitelist = new Dictionary<string, string[]>
-{
-    {"b"            , new string[] { "style" }},
-    {"strong"       , new string[] { "style" }},
-    {"i"            , new string[] { "style" }},
-    {"em"           , new string[] { "style" }},
-    {"u"            , new string[] { "style" }},
-    {"strike"       , new string[] { "style" }},
-    {"sub"          , new string[] { "style" }},
-    {"sup"          , new string[] { "style" }},
-    {"p"            , new string[] { "align" }},
-    {"div"          , new string[] { "style", "align" }},
-    {"ol"           , new string[] { }},
-    {"li"           , new string[] { }},
-    {"ul"           , new string[] { }},
-    {"a"            , new string[] { "href" }},
-    {"font"         , new string[] { "style", "face", "size", "color" }},
-    {"span"         , new string[] { "style" }},
-    {"blockquote"   , new string[] { "style", "dir" }},
-    {"hr"           , new string[] { "size", "width", "id" }},
-    {"img"          , new string[] { "src" }},
-    {"h1"           , new string[] { "style" }},
-    {"h2"           , new string[] { "style" }},
-    {"h3"           , new string[] { "style" }},
-    {"h4"           , new string[] { "style" }},
-    {"h5"           , new string[] { "style" }},
-    {"h6"           , new string[] { "style" }}
-};
 
-        private static Dictionary<string, string[]> attributeWhitelist = new Dictionary<string, string[]>
-{
-    {"style"    , new string[] {}},
-    {"align"    , new string[] {}},
-    {"href"     , new string[] {}},
-    {"face"     , new string[] {}},
-    {"size"     , new string[] {}},
-    {"color"    , new string[] {}},
-    {"dir"      , new string[] {}},
-    {"width"    , new string[] {}},
-    {"id"       , new string[] {}},
-    {"src"      , new string[] {}}
-};
-
-        public string SanitizeHtmlInput(string unsafeStr)
+        public HashSet<string> BlackList = new HashSet<string>() 
         {
-            return sanitizer.GetSafeHtmlFragment(unsafeStr, elementWhitelist, attributeWhitelist);
+                { "script" },
+                { "iframe" },
+                { "form" },
+                { "object" },
+                { "embed" },
+                { "link" },                
+                { "head" },
+                { "meta" }
+        };
+
+        /// <summary>
+        /// Cleans up an HTML string and removes HTML tags in blacklist
+        /// </summary>
+        /// <param name="html"></param>
+        /// <returns></returns>
+        public static string SanitizeHtml(string html, params string[] blackList)
+        {
+            var sanitizer = new HtmlSanitizer();
+            if (blackList != null && blackList.Length > 0)
+            {
+                sanitizer.BlackList.Clear();
+                foreach (string item in blackList)
+                    sanitizer.BlackList.Add(item);
+            }
+            return sanitizer.Sanitize(html);
         }
-    }*/
+
+        /// <summary>
+        /// Cleans up an HTML string by removing elements
+        /// on the blacklist and all elements that start
+        /// with onXXX .
+        /// </summary>
+        /// <param name="html"></param>
+        /// <returns></returns>
+        public string Sanitize(string html)
+        {
+            var doc = new HtmlDocument();
+            doc.LoadHtml(html);
+            SanitizeHtmlNode(doc.DocumentNode);
+
+            //return doc.DocumentNode.WriteTo();
+
+            string output = null;
+
+            // Use an XmlTextWriter to create self-closing tags
+            using (StringWriter sw = new StringWriter())
+            {
+                XmlWriter writer = new XmlTextWriter(sw);
+                doc.DocumentNode.WriteTo(writer);
+                output = sw.ToString();
+
+                // strip off XML doc header
+                if (!string.IsNullOrEmpty(output))
+                {
+                    int at = output.IndexOf("?>");
+                    output = output.Substring(at + 2);
+                }
+
+                writer.Close();
+            }
+            doc = null;
+
+            return output;
+        }
+
+        private void SanitizeHtmlNode(HtmlNode node)
+        {
+            if (node.NodeType == HtmlNodeType.Element)
+            {
+                // check for blacklist items and remove
+                if (BlackList.Contains(node.Name))
+                {
+                    node.Remove();
+                    return;
+                }
+
+                // remove CSS Expressions and embedded script links
+                if (node.Name == "style")
+                {
+                    if (string.IsNullOrEmpty(node.InnerText))
+                    {
+                        if (node.InnerHtml.Contains("expression") || node.InnerHtml.Contains("javascript:"))
+                            node.ParentNode.RemoveChild(node);
+                    }
+                }
+
+                // remove script attributes
+                if (node.HasAttributes)
+                {
+                    for (int i = node.Attributes.Count - 1; i >= 0; i--)
+                    {
+                        HtmlAttribute currentAttribute = node.Attributes[i];
+                 
+                        var attr = currentAttribute.Name.ToLower();
+                        var val = currentAttribute.Value.ToLower();
+                        
+                        // remove event handlers
+                        if (attr.StartsWith("on"))
+                            node.Attributes.Remove(currentAttribute);
+                        
+                        // remove script links
+                        else if (
+                                 //(attr == "href" || attr== "src" || attr == "dynsrc" || attr == "lowsrc") &&
+                                 val != null &&
+                                 val.Contains("javascript:"))
+                            node.Attributes.Remove(currentAttribute);
+                        
+                        // Remove CSS Expressions
+                        else if (attr == "style" && 
+                                 val != null &&
+                                 val.Contains("expression") || val.Contains("javascript:") || val.Contains("vbscript:"))
+                            node.Attributes.Remove(currentAttribute);
+                    }
+                }
+            }
+
+            // Look through child nodes recursively
+            if (node.HasChildNodes)
+            {
+                for (int i = node.ChildNodes.Count - 1; i >= 0; i--)
+                {
+                    SanitizeHtmlNode(node.ChildNodes[i]);
+                }
+            }
+        }
+    }
 }

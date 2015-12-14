@@ -11,6 +11,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using AutoMapper;
 using Blog.Models;
+using Blog.Utility;
 using Blog.ViewModels;
 using Microsoft.AspNet.Identity;
 
@@ -92,6 +93,7 @@ namespace Blog.Controllers.Api
 
             postModel.BlogId = (int)CurrentUser.CurrentBlogId;
             postModel.UrlName = GenerateUrlName(postModel.Title);
+            postModel.Content = HtmlSanitizer.SanitizeHtml(postModel.Content);
             //todo sanitize content
             //todo create tags
 
