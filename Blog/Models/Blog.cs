@@ -29,6 +29,10 @@ namespace Blog.Models
         //[ScaffoldColumn(false)]
         public string UserId { get; set; }
         public virtual User User { get; set; }
+
+        public int LayoutSettingsId { get; set; }
+        public virtual LayoutSettings LayoutSettings { get; set; }
+
         public virtual ICollection<Post> Posts { get; set; }
         public virtual ICollection<PostCategory> PostCategories { get; set; }
         public virtual ICollection<Tag> Tags { get; set; }

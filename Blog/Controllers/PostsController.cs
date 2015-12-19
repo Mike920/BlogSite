@@ -12,7 +12,7 @@ namespace Blog.Controllers
 {
     public class PostsController : Controller
     {
-        private BlogDbContext db = new BlogDbContext();
+        private BlogDbContext db = new BlogDbContext{Configuration = { LazyLoadingEnabled = true}};
 
         // GET: Posts
         public ActionResult Index()
@@ -24,17 +24,11 @@ namespace Blog.Controllers
         // GET: Posts/Details/5
         public ActionResult Details(string blogName, int postId)
         {
-            if (postId == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             Post post = db.Posts.Find(postId);
             if (post == null)
-            {
                 return HttpNotFound();
-            }
-
-            return View(post);
+            
+            return View("Themes/Default",post);
         }
 
         // GET: Posts/Create

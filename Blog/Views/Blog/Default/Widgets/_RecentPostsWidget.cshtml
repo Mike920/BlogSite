@@ -1,0 +1,16 @@
+﻿@model IEnumerable<Blog.Models.Post>
+
+<div class="recent-post widget">
+    <h3>Recent Posts</h3>
+
+    <ul>
+        @foreach (var post in Model)
+        {
+            <li>
+                <a href="#">@post.Title</a><br>
+                <time>@Html.DisplayFor(p => post.PublishDate)</time>
+            </li>
+        }
+    </ul>
+
+</div>

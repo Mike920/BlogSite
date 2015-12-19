@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Blog.Models.PostCategory>
+
+<div class="categories widget">
+    <h3 class="widget-head">Categories</h3>
+    <ul>
+        @foreach (var cat in Model)
+        {
+            <li>
+                <a href="">@cat.Name</a> <span class="badge">1</span>
+            </li>
+        }
+    </ul>
+</div>

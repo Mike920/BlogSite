@@ -31,6 +31,7 @@ namespace Blog.Models
         public  bool Published { get; set; }
 
         [ScaffoldColumn(false)]
+        [DisplayFormat(DataFormatString = "{0:d MMMM yyyy, HH:mm}")]
         public  DateTime? PublishDate { get; set; }
 
         [ScaffoldColumn(false)]
@@ -39,7 +40,7 @@ namespace Blog.Models
         public int BlogId { get; set; }
         public virtual Blog Blog { get; set; }
         [Required]
-        public string CategoryId { get; set; }
+        public int CategoryId { get; set; }
         public virtual PostCategory Category
         { get; set; }
 

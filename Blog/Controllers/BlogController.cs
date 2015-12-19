@@ -39,6 +39,47 @@ namespace Blog.Controllers
             return View();
         }
 
+        public ActionResult Display(string blogName)
+        {
+            var blog = db.Blogs.FirstOrDefault(b => b.UrlName == blogName);
+            if (blog == null)
+                return HttpNotFound();
+            var posts = blog.Posts.Where(p => p.Published);
+            var layoutSettings = blog.LayoutSettings;
+            var viewModel = new DisplayBlog {Blog = blog, Posts = posts, LayoutSettings = layoutSettings};
+            //var posts = db.Posts.Where(p => p.Blog.Name == blogName && p.Published);
+
+            return View("Default/Default",viewModel);
+        }
+
+/*        [ChildActionOnly]
+        public ActionResult Widgets(int blogId)
+        {
+            var blog = db.Blogs.Find(blogId);
+            var layoutSettings = blog != null ? blog.LayoutSettings : null;
+
+            return View("Default/Widgets/_Widgets", layoutSettings);
+        }*/
+
+        [ChildActionOnly]
+        public ActionResult CategoriesWidget(int blogId)
+        {
+            var blog =  db.Blogs.Find(blogId);
+            var categories = blog != null ? blog.PostCategories : new List<PostCategory>();
+
+            return View("Default/Widgets/_CategoriesWidget",categories);
+        }
+
+        [ChildActionOnly]
+        public ActionResult RecentPostsWidget(int blogId)
+        {
+            var blog = db.Blogs.Find(blogId);
+            var posts = blog != null ? blog.Posts.OrderBy( p => p.PublishDate).Take(5) 
+                : new List<Post>();
+
+            return View("Default/Widgets/_RecentPostsWidget", posts);
+        }
+
         [HttpGet]
         public ActionResult Create()
         {

@@ -18,7 +18,14 @@ namespace Blog.Models
             Database.SetInitializer(new ApplicationDbInitializer());
         }
 
-       
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Post>()
+                .HasRequired(p => p.Category)
+                .WithMany()
+                .WillCascadeOnDelete(false);
+        }
 
         public static BlogDbContext Create()
         {
@@ -30,5 +37,6 @@ namespace Blog.Models
 
         public System.Data.Entity.DbSet<Post> Posts { get; set; }
         public System.Data.Entity.DbSet<PostCategory> PostCategories { get; set; }
+        public System.Data.Entity.DbSet<LayoutSettings> LayoutSettings { get; set; }
     }
 }

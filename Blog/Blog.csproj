@@ -1235,6 +1235,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\LayoutSettings.cs" />
     <Compile Include="Utility\RemoteValidationAttribute.cs" />
     <Compile Include="Utility\Sanitizer.cs" />
     <Compile Include="Utility\ServerTools.cs" />
@@ -1253,6 +1254,7 @@
     <Compile Include="ViewModels\AdminPanel\BlogInformationViewModel.cs" />
     <Compile Include="ViewModels\AdminViewModel.cs" />
     <Compile Include="ViewModels\Blog\CreateBlogViewModel.cs" />
+    <Compile Include="ViewModels\Blog\DisplayBlog.cs" />
     <Compile Include="ViewModels\Blog\EditBlogViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="ViewModels\PostCategory\EditPostCategory.cs" />
@@ -1327,6 +1329,15 @@
     <Content Include="Views\Posts\Details.cshtml" />
     <Content Include="Views\Posts\Edit.cshtml" />
     <Content Include="Views\Posts\Index.cshtml" />
+    <Content Include="Views\Posts\Themes\Default.cshtml" />
+    <Content Include="Views\Blog\Default\Default.cshtml" />
+    <Content Include="Views\Posts\Themes\Default - Copy.cshtml" />
+    <Content Include="Views\Blog\Default\Default - Copy.cshtml" />
+    <Content Include="Views\Blog\Default\Widgets\_CategoriesWidget.cshtml" />
+    <Content Include="Views\Blog\Default\Widgets\_ViewStart.cshtml" />
+    <Content Include="Views\Blog\Default\Widgets\_RecentPostsWidget.cshtml" />
+    <Content Include="Views\Blog\Default\Widgets\_AuthorWidget.cshtml" />
+    <Content Include="Views\Blog\Default\Widgets\_Widgets.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1340,6 +1351,7 @@
     <Folder Include="MediaData\" />
     <Folder Include="Temp\" />
     <Folder Include="Views\File\" />
+    <Folder Include="Views\Shared\Themes\" />
     <Folder Include="Views\Validation\" />
   </ItemGroup>
   <PropertyGroup>

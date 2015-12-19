@@ -36,7 +36,11 @@ namespace Blog.Services
 
             //todo server side image resize
             blog.ImageUrl = ServerTools.RelativePath(imageDestinationPath);
-                
+
+            var layoutSettings = new LayoutSettings();
+            /*_db.LayoutSettings.Add(layoutSettings);*/
+            blog.LayoutSettings = layoutSettings;
+
             _db.Blogs.Add(blog);
             _db.SaveChanges();
 

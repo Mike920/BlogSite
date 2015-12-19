@@ -1,0 +1,33 @@
+﻿@using Blog.Models
+@model LayoutSettings
+    
+
+<div class="col-md-4">
+    <div class="sidebar">
+        <div class="search widget">
+            <form action="" method="get" class="searchform" role="search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button"> <i class="ion-search"></i> </button>
+                    </span>
+                </div><!-- /input-group -->
+            </form>
+        </div>
+        @foreach (var widget in Model.WidgetList)
+        {
+            switch (widget)
+            {
+                case Widget.Author:
+                    @Html.Partial("Default/Widgets/_AuthorWidget");
+                    break;
+                case Widget.Categories:
+                    Html.RenderAction("CategoriesWidget", "Blog", new { blogId = Model.Id });
+                    break;
+                case Widget.RecentPosts:
+                    Html.RenderAction("RecentPostsWidget", "Blog", new { blogId = Model.Id });
+                    break;
+            }
+        }
+    </div>
+</div>
