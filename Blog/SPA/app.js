@@ -1,7 +1,7 @@
 ﻿(function () {
 'use strict';
 
-var app = angular.module('app', ['ngResource', 'ngRoute']);
+var app = angular.module('app', ['ngResource', 'ngRoute', 'ui.sortable']);
 
 app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
 
@@ -26,6 +26,11 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
         controller: 'DashboardCtrl',
         caseInsensitiveMatch: true
     });
+    $routeProvider.when('/Appearance/Layout', {
+        templateUrl: '/NgPartials/EditLayout',
+        controller: 'LayoutCtrl',
+        caseInsensitiveMatch: true
+    });
     $routeProvider.otherwise({
         redirectTo: '/Dashboard'
     });
@@ -34,6 +39,7 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
     $locationProvider.html5Mode(true);
 }]);
 
-app.run([function () {
+app.run(['$rootScope', 'UserService', function ($rootScope, UserService) {
+    UserService.refresh();
 }]);
 })();

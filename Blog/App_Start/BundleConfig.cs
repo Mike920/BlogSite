@@ -60,6 +60,9 @@ namespace Blog
                 "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-resource.min.js").Include(
                 "~/Scripts/angular/angular-resource.js"
                 ));
+            bundles.Add(new ScriptBundle(Bundles.Js.AngularSortable).Include(
+                "~/Scripts/angular/ui-sortable.js"
+                ));
    
 
             bundles.Add(new ScriptBundle(Bundles.Js.AngularApp).Include(
@@ -123,6 +126,7 @@ namespace Blog
             public const string Angular = "~/js/Angular";
             public const string AngularRoute = "~/js/AngularRoute";
             public const string AngularResource = "~/js/AngularResource";
+            public const string AngularSortable = "~/js/AngularSortable";
 
             public const string AngularApp = "~/js/AngularApp";
 

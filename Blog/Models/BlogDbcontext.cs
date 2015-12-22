@@ -15,7 +15,7 @@ namespace Blog.Models
         public BlogDbContext()
             : base("BlogDbContext")
         {
-            Database.SetInitializer(new ApplicationDbInitializer());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<BlogDbContext, Migrations.Configuration>("BlogDbContext"));
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
