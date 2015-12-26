@@ -15,8 +15,6 @@ namespace Blog.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
-            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(Blog.Models.BlogDbContext context)
@@ -43,8 +41,13 @@ namespace Blog.Migrations
 
         public static void InitializeIdentityForEF(BlogDbContext db)
         {
-            var userManager = HttpContext.Current.GetOwinContext().GetUserManager<UserManager>();
-            var roleManager = HttpContext.Current.GetOwinContext().Get<ApplicationRoleManager>();
+            /*var userManager = HttpContext.Current.GetOwinContext().GetUserManager<UserManager>();
+            var roleManager = HttpContext.Current.GetOwinContext().Get<ApplicationRoleManager>();*/
+            var roleStore = new RoleStore<IdentityRole>(db);
+            var roleManager = new RoleManager<IdentityRole>(roleStore);
+            var userStore = new UserStore<User>(db);
+            var userManager = new UserManager<User>(userStore);
+
             const string name = "admin@example.com";
             const string password = "Admin@123456";
             const string roleName = "Admin";

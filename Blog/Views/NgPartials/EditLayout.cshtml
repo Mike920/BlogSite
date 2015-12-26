@@ -5,6 +5,22 @@
 
 <h2>EditLayout</h2>
 
+<h4>Widgets column location</h4>
+<form >
+    <label>
+        <input type="radio" ng-model="color.name" value="red">
+        Left
+    </label><br />
+    <label>
+        <input type="radio" ng-model="color.name" ng-value="specialValue">
+        Right
+    </label><br />
+    <label>
+        <input type="radio" ng-model="color.name" value="blue">
+        Blue
+    </label><br />
+</form>
+
 <ul ui-sortable ng-model="widgets">
     <li ng-repeat="w in widgets">{{w}}</li>
 </ul>
