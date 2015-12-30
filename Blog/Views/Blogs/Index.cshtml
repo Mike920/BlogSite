@@ -1,0 +1,8 @@
+﻿@model IEnumerable<Blog.Models.Blog>
+@using PagedList.Mvc; 
+@using PagedList;
+@{
+    ViewBag.Title = "Index";
+}
+
+@Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("Index", new { page }))

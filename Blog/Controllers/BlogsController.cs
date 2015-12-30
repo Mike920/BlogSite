@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Blog.Models;
 using Blog.Services;
 using Microsoft.AspNet.Identity;
+using PagedList;
 
 namespace Blog.Controllers
 {
@@ -22,6 +23,18 @@ namespace Blog.Controllers
         public User CurrentUser
         {
             get { return db.Users.Find(User.Identity.GetUserId()); }
+        }
+
+        [AllowAnonymous]
+        public ActionResult Index(int page = 1)
+        {
+            var blogs = db.Blogs; //MyProductDataSource.FindAllProducts(); //returns IQueryable<Product> representing an unknown number of products. a thousand maybe?
+
+            var onePageOfProducts = blogs.ToPagedList(page, 25); // will only contain 25 products max because of the pageSize
+
+            ViewBag.OnePageOfProducts = onePageOfProducts;
+
+            return View();
         }
 
         public ActionResult ActiveBlog()
