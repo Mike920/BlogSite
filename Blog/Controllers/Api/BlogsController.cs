@@ -7,8 +7,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using System.Web.Http.OData;
@@ -20,6 +18,7 @@ using Blog.Utility;
 using Blog.ViewModels;
 using Microsoft.AspNet.Identity;
 using Omu.Drawing;
+//using System.Web.Mvc;
 
 namespace Blog.Controllers.Api
 {
@@ -146,7 +145,16 @@ namespace Blog.Controllers.Api
 
             var resized =Imager.Crop(image, new Rectangle((int)header.X, (int)header.Y, w, h));
 
-            resized.Save(Path.Combine() ServerTools.Paths.MediaFolderPath(header.FileName));
+            string fileName = "header." + header.FileName.Split('.').Last();
+            string path = Path.Combine(ServerTools.Paths.MediaFolderPath(blog.UrlName), fileName);
+            resized.Save(path);
+
+            blog.HeaderUrl = ServerTools.RelativePath(path);
+
+            db.Entry(blog).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return Ok();
             /*if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -185,7 +193,7 @@ namespace Blog.Controllers.Api
                 }
             }*/
 
-            return StatusCode(HttpStatusCode.NoContent);
+          //  return StatusCode(HttpStatusCode.NoContent);
         }
 
         private bool BelongsToCurrentUser(Models.Blog blog)

@@ -8,12 +8,14 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Caching;
 using System.Web.Mvc;
-using System.Web.UI.WebControls;
+//using System.Web.UI.WebControls;
 using AutoMapper;
 using Blog.Utility;
 using Blog.ViewModels;
 using Blog.Models;
+using System.Drawing;
 using Blog = Blog.Models.Blog;
+using Omu.Drawing;
 
 namespace Blog.Services
 {
@@ -34,7 +36,8 @@ namespace Blog.Services
             blog.UserId = userId;
 
             string blogFolderPath = CreateBlogFolder(blog.Name);
-            string imageDestinationPath = MoveFromTempToBlogDir(viewModel.MiniatureUrl, blogFolderPath);
+            //   string imageDestinationPath = MoveFromTempToBlogDir(viewModel.MiniatureUrl, blogFolderPath);
+            string imageDestinationPath = ResizeAndSave(viewModel.MiniatureUrl, blogFolderPath);
 
             //todo server side image resize
             blog.MiniatureUrl = ServerTools.RelativePath(imageDestinationPath);
@@ -65,6 +68,19 @@ namespace Blog.Services
             string path = Path.Combine(ServerTools.Paths.MediaFolderPath("Blogs"), name);
             Directory.CreateDirectory(path);
             return path;
+        }
+
+        private string ResizeAndSave(string tempFile, string blogFolder)
+        {
+            string tempImgPath = Path.Combine(ServerTools.Paths.TempFolder, tempFile);
+            string fileName = "miniature." + tempFile.Split('.').Last();
+            string imageDestinationPath = Path.Combine(blogFolder, fileName);
+
+            Image img = Image.FromFile(tempImgPath);
+            var resized = Imager.Resize(img, 300, 250, false);
+            resized.Save(imageDestinationPath);
+            File.Delete(tempImgPath);
+            return imageDestinationPath;
         }
 
         private string MoveFromTempToBlogDir(string tempFile, string blogFolder)
