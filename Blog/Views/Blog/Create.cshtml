@@ -133,17 +133,17 @@
 
                 init: {
                     FilesAdded: function(){
-                        $('#ImageUrl').val('ok');
-                        $('#ImageUrl').valid();
+                        $('#MiniatureUrl').val('ok');
+                        $('#MiniatureUrl').valid();
                     },
                     FilesRemoved: function () {
-                        $('#ImageUrl').val('');
+                        $('#MiniatureUrl').val('');
                     },
                     FileUploaded: function (up, file, info) {
                         var response = $.parseJSON(info.response);
                         //filesNames = filesNames.concat(response);
-                        $('#ImageUrl').val(response[0]);
-                        $('#ImageUrl').valid();
+                        $('#MiniatureUrl').val(response[0]);
+                        $('#MiniatureUrl').valid();
 
                         $('#upload-form').submit();
                     }

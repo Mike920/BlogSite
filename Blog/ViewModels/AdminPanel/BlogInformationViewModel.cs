@@ -22,7 +22,7 @@ namespace Blog.ViewModels
         public virtual BlogCategory Category { get; set; }
 
         [Required]
-        public string ImageUrl { get; set; }
+        public string MiniatureUrl { get; set; }
         
     }
 }
