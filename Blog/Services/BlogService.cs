@@ -35,7 +35,7 @@ namespace Blog.Services
             Models.Blog blog = Mapper.Map<Models.Blog>(viewModel);
             blog.UserId = userId;
 
-            string blogFolderPath = CreateBlogFolder(blog.Name);
+            string blogFolderPath = CreateBlogFolder(blog.UrlName);
             //   string imageDestinationPath = MoveFromTempToBlogDir(viewModel.MiniatureUrl, blogFolderPath);
             string imageDestinationPath = ResizeAndSave(viewModel.MiniatureUrl, blogFolderPath);
 
@@ -73,33 +73,24 @@ namespace Blog.Services
         private string ResizeAndSave(string tempFile, string blogFolder)
         {
             string tempImgPath = Path.Combine(ServerTools.Paths.TempFolder, tempFile);
-            string fileName = "miniature.jpg"; //" + tempFile.Split('.').Last();
+            string fileName = "miniature." + tempFile.Split('.').Last();
             string imageDestinationPath = Path.Combine(blogFolder, fileName);
 
-            //Image img = Image.FromFile(tempImgPath);
-            //
-            using (FileStream fs = new FileStream(tempImgPath, FileMode.Open, FileAccess.Read))
-            {
-                using (Image img = Image.FromStream(fs))
-                {
-                    var resized = Imager.Resize(img, 300, 250, false);
-                    Imager.SaveJpeg(imageDestinationPath,img);
-                }
-            }
-                    //
-                   
-            
+            Image img = Image.FromFile(tempImgPath);
+            var resized = Imager.Resize(img, 300, 250, false);
+            resized.Save(imageDestinationPath);
+            img.Dispose();
             File.Delete(tempImgPath);
             return imageDestinationPath;
         }
 
-        private string MoveFromTempToBlogDir(string tempFile, string blogFolder)
-        {
-            string sourcePath = Path.Combine(ServerTools.Paths.TempFolder, tempFile);
-            string imageDestinationPath = Path.Combine(blogFolder, tempFile);
-            File.Move(sourcePath, imageDestinationPath);
-            return imageDestinationPath;
-        }
+        //private string MoveFromTempToBlogDir(string tempFile, string blogFolder)
+        //{
+        //    string sourcePath = Path.Combine(ServerTools.Paths.TempFolder, tempFile);
+        //    string imageDestinationPath = Path.Combine(blogFolder, tempFile);
+        //    File.Move(sourcePath, imageDestinationPath);
+        //    return imageDestinationPath;
+        //}
 
 
         public void IncrementVisitCounter(HttpContextBase httpContext, int blogId)
