@@ -41,6 +41,6 @@ namespace Blog.Models
     {
         public const string Author = "Author";
         public const string Categories = "Categories";
-        public const string RecentPosts = "RecentPosts";
+        public const string RecentPosts = "Recent Posts";
     }
 }

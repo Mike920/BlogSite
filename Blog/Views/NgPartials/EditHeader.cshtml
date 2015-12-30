@@ -1,0 +1,156 @@
+﻿@{
+    ViewBag.Title = "EditHeader";
+}
+
+<section class="content-header">
+    <h1>
+        Header
+    </h1>
+</section>
+
+@*<div class="form-horizontal">
+
+    <label for="exampleInputFile">File input</label>
+    <div class="form-group">
+        <div class="input-group col-md-5">
+            <span class=" input-group-addon btn btn-default btn-file">
+                Browse <input id="imageInput" type="file" accept='image/*'>
+            </span>
+            <input readonly="readonly" id="imageUrl" class="form-control" type="text">
+        </div>
+    </div>
+
+    <div class="image-cropper form-group col-md-8  ">
+        <img id="image" class="image" style="width: 100%; height: 100%;"/>
+    </div>
+    <textarea>dfghd</textarea>
+</div>*@
+<section class="content">
+        <div class="box box-primary">
+            <form>
+                <div class="box-body ">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class=" input-group-addon btn btn-default btn-file">
+                                    Browse <input id="imageInput" type="file" accept='image/*'>
+                                </span>
+                                <input readonly="readonly" id="imageUrl" ng-model="model.image" class="form-control" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="image-cropper" style="max-width: 900px;">
+                                <img id="image" ng-src="{{model.HeaderUrl}}" class="image"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input id="submit" type="button" ng-disabled="loading" ng-click="submit()" value="Save" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+</section>
+@*TODO Create view model with file and send using angular*@
+
+<link href="~/Scripts/Jcrop/jquery.Jcrop.css" rel="stylesheet" />
+<script src="~/Scripts/Jcrop/jquery.color.js"></script>
+<script src="~/Scripts/Jcrop/jquery.Jcrop.js"></script>
+
+<style>
+    /*#image {
+        max-width: 900px;
+    }*/
+</style>
+
+<script>
+    //@@ sourceURL=filename.js
+    $(function () {
+        var w = 940;
+        var h = 279;
+        var x = 0;
+        var y = 0;
+
+        function ChangeCrop(e) {
+            //  w = e.w;
+            //  h = e.h;
+            //  x = e.x;
+            //  y = e.y;
+            var scope = angular.element($("#image")).scope();
+            scope.$apply(function () {
+                scope.model.X = e.x;
+                scope.model.Y = e.y;
+            });
+        }
+
+        var jcrop, jcropOptions;
+        jcropOptions = {
+            //aspectRatio: 1,
+            onChange: ChangeCrop,
+            allowSelect: false,
+            allowResize: false,
+            boxWidth: 900,   //Maximum width you want for your bigger images
+            boxHeight: 600,  //Maximum Height for your bigger images
+            setSelect: [0, 0, w, h]
+        };
+
+
+        function imageChanged(input) {
+
+            if (input.files && input.files[0]) {
+                var img = new Image();
+                img.onload = function (e) {
+                    if (this.width < w || this.height < h) {
+                        alert("Selected image is too small, minimum image size must be " + w + "x" + h + ".");
+                    } else {
+
+                        $('#image').attr('style', '');
+                        $('#image').attr('src', img.src);
+                        $('#imageUrl').val(input.files[0].name);
+                        if (jcrop != null) {
+                            jcrop.destroy();
+                        }
+
+                        var scope = angular.element($("#image")).scope();
+                        var r = new FileReader();
+                        r.onload = function (re) {
+                            scope.$apply(function () {
+                                scope.model.File = re.target.result.split(",").pop();
+                                scope.model.FileName = input.files[0].name;
+                            });
+                        }
+                        r.readAsDataURL(input.files[0]);
+                       
+                        $('#image').Jcrop(jcropOptions, function () {
+                            jcrop = this;
+                            jcrop.animateTo([0, 0, w, h]);
+                        });
+                    }
+                };
+
+                img.src = URL.createObjectURL(input.files[0]);
+
+            }
+        }
+
+        $("#imageInput").change(function() {
+            imageChanged(this);
+        });
+
+
+
+    });
+
+/*    $(document).on('change', '.btn-file :file', function () {
+        var input = $(this),
+            numFiles = input.get(0).files ? input.get(0).files.length : 1,
+            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        input.trigger('fileselect', [numFiles, label]);
+    });
+    $(document).ready(function () {
+        $('.btn-file :file').on('fileselect', function (event, numFiles, label) {
+            console.log(numFiles);
+            console.log(label);
+        });
+    });*/
+</script>

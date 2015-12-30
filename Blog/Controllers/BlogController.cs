@@ -39,6 +39,8 @@ namespace Blog.Controllers
             return View();
         }
 
+
+        [AllowAnonymous]
         public ActionResult Display(string blogName)
         {
             var blog = db.Blogs.FirstOrDefault(b => b.UrlName == blogName);
@@ -49,19 +51,14 @@ namespace Blog.Controllers
             var viewModel = new DisplayBlog {Blog = blog, Posts = posts, LayoutSettings = layoutSettings};
             //var posts = db.Posts.Where(p => p.Blog.Name == blogName && p.Published);
 
+            _service.IncrementVisitCounter(HttpContext,blog.Id);
+            
             return View("Default/Default",viewModel);
         }
 
-/*        [ChildActionOnly]
-        public ActionResult Widgets(int blogId)
-        {
-            var blog = db.Blogs.Find(blogId);
-            var layoutSettings = blog != null ? blog.LayoutSettings : null;
-
-            return View("Default/Widgets/_Widgets", layoutSettings);
-        }*/
 
         [ChildActionOnly]
+        [AllowAnonymous]
         public ActionResult CategoriesWidget(int blogId)
         {
             var blog =  db.Blogs.Find(blogId);
@@ -71,6 +68,7 @@ namespace Blog.Controllers
         }
 
         [ChildActionOnly]
+        [AllowAnonymous]
         public ActionResult RecentPostsWidget(int blogId)
         {
             var blog = db.Blogs.Find(blogId);

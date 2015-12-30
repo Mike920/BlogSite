@@ -30,7 +30,7 @@ namespace Blog.ViewModels
         [Required]
         public int CategoryId { get; set; }
 
-        [Required]
-        public string ImageUrl { get; set; }
+        public string HeaderUrl { get; set; }
+        public string MiniatureUrl { get; set; }
     }
 }

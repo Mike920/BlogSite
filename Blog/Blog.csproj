@@ -107,6 +107,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Omu.Drawing, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\omu.drawing.1.0.0\lib\net35\Omu.Drawing.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Owin">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
@@ -258,6 +262,8 @@
     <Content Include="Images\logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="MediaData\Default\default-header.jpg" />
+    <Content Include="MediaData\Default\default-header2.jpg" />
     <Content Include="Scripts\AdminPanel\app.js" />
     <Content Include="Scripts\AdminPanel\app.min.js" />
     <Content Include="Scripts\AdminPanel\demo.js" />
@@ -398,7 +404,17 @@
     <Content Include="App_Data\dummy">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="MediaData\Blogs\dummy">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Properties\PublishProfiles\Somee.pubxml" />
+    <Content Include="Scripts\Jcrop\Jcrop.gif" />
+    <Content Include="Scripts\Jcrop\jquery.color.js" />
+    <Content Include="Scripts\Jcrop\jquery.Jcrop.css" />
+    <Content Include="Scripts\Jcrop\jquery.Jcrop.js" />
+    <Content Include="SPA\Controllers\Appearance.js" />
+    <Content Include="SPA\Controllers\Header.js" />
+    <Content Include="Views\NgPartials\EditHeader.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -1251,6 +1267,7 @@
     <Content Include="SPA\Controllers\Post.js" />
     <Content Include="SPA\Controllers\BlogSettings.js" />
     <Content Include="SPA\Controllers\Dashboard.js" />
+    <Content Include="SPA\Services\LayoutSettingsService.js" />
     <Content Include="SPA\Services\PostCategoryService.js" />
     <Content Include="SPA\Services\HelpersService.js" />
     <Content Include="SPA\Services\UserService.js" />
@@ -1277,10 +1294,12 @@
     <Compile Include="Controllers\AdminPanelController.cs" />
     <Compile Include="Controllers\Api\BlogsController.cs" />
     <Compile Include="Controllers\Api\CurrentUserController.cs" />
+    <Compile Include="Controllers\Api\LayoutSettingsController.cs" />
     <Compile Include="Controllers\Api\PostCategoriesController.cs" />
     <Compile Include="Controllers\Api\PostsController.cs" />
     <Compile Include="Controllers\Blog2Controller.cs" />
     <Compile Include="Controllers\BlogController.cs" />
+    <Compile Include="Controllers\BlogsController.cs" />
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -1297,8 +1316,18 @@
     <Compile Include="Migrations\201512251517428_Initial.Designer.cs">
       <DependentUpon>201512251517428_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201512271954400_addVisitsToBlog.cs" />
+    <Compile Include="Migrations\201512271954400_addVisitsToBlog.Designer.cs">
+      <DependentUpon>201512271954400_addVisitsToBlog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512291927153_AddHeaderUrlAndMiniatureUrlToBlog.cs" />
+    <Compile Include="Migrations\201512291927153_AddHeaderUrlAndMiniatureUrlToBlog.Designer.cs">
+      <DependentUpon>201512291927153_AddHeaderUrlAndMiniatureUrlToBlog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\LayoutSettings.cs" />
+    <Compile Include="Services\BlogsService.cs" />
+    <Compile Include="Utility\ImageHelper.cs" />
     <Compile Include="Utility\RemoteValidationAttribute.cs" />
     <Compile Include="Utility\Sanitizer.cs" />
     <Compile Include="Utility\ServerTools.cs" />
@@ -1319,6 +1348,7 @@
     <Compile Include="ViewModels\Blog\CreateBlogViewModel.cs" />
     <Compile Include="ViewModels\Blog\DisplayBlog.cs" />
     <Compile Include="ViewModels\Blog\EditBlogViewModel.cs" />
+    <Compile Include="ViewModels\Blog\EditBlogHeader.cs" />
     <Compile Include="ViewModels\User\DisplayUser.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="ViewModels\PostCategory\EditPostCategory.cs" />
@@ -1418,6 +1448,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201512251517428_Initial.resx">
       <DependentUpon>201512251517428_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512271954400_addVisitsToBlog.resx">
+      <DependentUpon>201512271954400_addVisitsToBlog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512291927153_AddHeaderUrlAndMiniatureUrlToBlog.resx">
+      <DependentUpon>201512291927153_AddHeaderUrlAndMiniatureUrlToBlog.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -5,6 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
+using System.Web.Caching;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using AutoMapper;
@@ -26,16 +28,16 @@ namespace Blog.Services
 
         public bool CreateBlog(CreateBlogViewModel viewModel, string userId)
         {
-            if (!_modelState.IsValid || !ServerTools.Paths.TempFolderContains(viewModel.ImageUrl)) return false;
+            if (!_modelState.IsValid || !ServerTools.Paths.TempFolderContains(viewModel.MiniatureUrl)) return false;
 
             Models.Blog blog = Mapper.Map<Models.Blog>(viewModel);
             blog.UserId = userId;
 
             string blogFolderPath = CreateBlogFolder(blog.Name);
-            string imageDestinationPath = MoveFromTempToBlogDir(viewModel.ImageUrl, blogFolderPath);
+            string imageDestinationPath = MoveFromTempToBlogDir(viewModel.MiniatureUrl, blogFolderPath);
 
             //todo server side image resize
-            blog.ImageUrl = ServerTools.RelativePath(imageDestinationPath);
+            blog.MiniatureUrl = ServerTools.RelativePath(imageDestinationPath);
 
             var layoutSettings = new LayoutSettings();
             /*_db.LayoutSettings.Add(layoutSettings);*/
@@ -60,7 +62,7 @@ namespace Blog.Services
 
         private string CreateBlogFolder(string name)
         {
-            string path = Path.Combine(ServerTools.Paths.MediaFolderPath(), name);
+            string path = Path.Combine(ServerTools.Paths.MediaFolderPath("Blogs"), name);
             Directory.CreateDirectory(path);
             return path;
         }
@@ -73,5 +75,25 @@ namespace Blog.Services
             return imageDestinationPath;
         }
 
+
+        public void IncrementVisitCounter(HttpContextBase httpContext, int blogId)
+        {
+            string key = "visits" + blogId;
+            int value = httpContext.Application[key] as int? ?? 0;
+
+            httpContext.Application[key] = ++value;
+
+            if (value >= 2)
+            {
+                var blog = _db.Blogs.Find(blogId);
+                blog.Visits += value;
+
+                _db.Entry(blog).State = EntityState.Modified;
+                _db.SaveChanges();
+
+                httpContext.Application[key] = 0;
+            }
+
+        }
     }
 }

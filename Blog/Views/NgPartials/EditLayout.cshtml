@@ -8,19 +8,27 @@
 <h4>Widgets column location</h4>
 <form >
     <label>
-        <input type="radio" ng-model="color.name" value="red">
+        <input type="radio" ng-model="model.WidgetsColumnSide" value="left">
         Left
     </label><br />
     <label>
-        <input type="radio" ng-model="color.name" ng-value="specialValue">
+        <input type="radio" ng-model="model.WidgetsColumnSide" value="right">
         Right
-    </label><br />
-    <label>
-        <input type="radio" ng-model="color.name" value="blue">
-        Blue
     </label><br />
 </form>
 
-<ul ui-sortable ng-model="widgets">
+@*<ul ui-sortable ng-model="widgets">
     <li ng-repeat="w in widgets">{{w}}</li>
-</ul>
+</ul>*@
+
+<div class="layoutsettings floatleft">
+    <div ui-sortable="sortableOptions" class="apps-container screen floatleft" ng-model="model.WidgetList">
+        <div class="app" ng-repeat="w in model.WidgetList">{{w}}</div>
+    </div>
+    <div ui-sortable="sortableOptions" class="apps-container screen floatleft" ng-model="widgets">
+        <div class="app" ng-repeat="w in widgets">{{w}}</div>
+    </div>
+    <div style="clear: both;"></div>
+</div>
+
+<div class="clear"></div>

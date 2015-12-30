@@ -50,9 +50,9 @@
             <label class="control-label col-md-2">Miniature:</label>
             @*<div class="col-md-12 text-info">Miniature will be resized to 300x200px</div>*@
             <div class="col-md-5">
-                <span class="text-info">Miniature will be resized to 300x200</span>
-                @Html.HiddenFor(model => model.ImageUrl)
-                @Html.ValidationMessageFor(model => model.ImageUrl, "", new {@class = "text-danger"})
+                <span class="text-info">Miniature will be resized to 300x250</span>
+                @Html.HiddenFor(model => model.MiniatureUrl)
+                @Html.ValidationMessageFor(model => model.MiniatureUrl, "", new {@class = "text-danger"})
                 <div id="uploader">
                     <p>Your browser doesn't have Flash, Silverlight or HTML5 support.</p>
                 </div>
@@ -99,8 +99,8 @@
 
                 // Resize images on clientside if we can
                 resize : {
-                    width : 200,
-                    height : 200,
+                    width : 300,
+                    height : 250,
                     quality : 100,
                     crop: false // crop to exact dimensions
                 },

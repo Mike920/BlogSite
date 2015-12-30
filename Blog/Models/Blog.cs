@@ -21,7 +21,10 @@ namespace Blog.Models
         
         [Required][DataType(DataType.MultilineText)]
         public string Description { get; set; }
-        public string ImageUrl { get; set; }
+
+        public int Visits { get; set; }
+        public string HeaderUrl { get; set; }
+        public string MiniatureUrl { get; set; }
 
         public int CategoryId { get; set; }
         public virtual BlogCategory Category { get; set; }
@@ -42,6 +45,7 @@ namespace Blog.Models
             Posts = new List<Post>();
             PostCategories = new List<PostCategory>();
             Tags = new List<Tag>();
+            //MiniatureUrl = "/MediaData/Default/default-miniature.jpg"
         }
     }
 }

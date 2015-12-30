@@ -27,5 +27,10 @@ namespace Blog.Controllers
         {
             return View();
         }
+
+        public ActionResult EditHeader()
+        {
+            return View();
+        }
     }
 }

@@ -31,6 +31,11 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
         controller: 'LayoutCtrl',
         caseInsensitiveMatch: true
     });
+    $routeProvider.when('/Appearance/Header', {
+        templateUrl: '/NgPartials/EditHeader',
+        controller: 'HeaderCtrl',
+        caseInsensitiveMatch: true
+    });
     $routeProvider.otherwise({
         redirectTo: '/Dashboard'
     });
