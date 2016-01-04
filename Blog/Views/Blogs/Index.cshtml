@@ -5,4 +5,40 @@
     ViewBag.Title = "Index";
 }
 
-@Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("Index", new { page }))
+
+<section id="works" class="works">
+    <div class="container">
+        <div class="section-heading">
+            <h1 class="title wow fadeInDown" data-wow-delay=".3s">Most Popular Blogs</h1>
+        </div>
+        <div class="row">
+            @foreach(var blog in Model)
+            {
+                <div class="col-sm-3 col-xs-12">
+                    <figure class="wow fadeInLeft animated portfolio-item" data-wow-duration="500ms" data-wow-delay="0ms">
+                        <a href="/Blog/@blog.UrlName">
+                            <div class="img-wrapper">
+                                <img src="@blog.MiniatureUrl" class="img-responsive" alt="this is a title">
+                                <div class="overlay">
+                                    <p style="color: #CECECE;">@blog.Description</p>
+                                </div>
+                            </div>
+                        </a>
+                        <figcaption>
+                            <h4>
+                                <a href="/Blog/@blog.UrlName">
+                                    @blog.Name
+                                </a>
+                            </h4>
+                            @*                            <p>
+                                desc
+                            </p>*@
+                        </figcaption>
+                    </figure>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))

@@ -18,6 +18,7 @@ function HeaderCtrl($scope , BlogService) {
             $scope.loading = false;
         },
         function (error) {
+            $scope.status = { mgs: "Error.", clas: "alert-error" };
             $('#statusBox').remove();
             var status = $('<div id="statusBox" class="alert alert-error" role="alert">Connection error.</div>').hide().fadeIn('normal');
             $('#upload-form').prepend(status);
@@ -28,6 +29,11 @@ function HeaderCtrl($scope , BlogService) {
             $scope.loading = true;
             BlogService.update({ currentBlog: true, editHeader: true }, $scope.model,
                 function (success) {
+                    $scope.status = { msg: "Changes have been saved.", clas: "alert-success" };
+                    $("#imageInput").trigger('dispose');
+                    $scope.model.HeaderUrl = success.HeaderUrl + '?decache=' + (new Date()).toString();
+                    $('#image').attr('src', $scope.model.HeaderUrl);
+                    $scope.model.File = null;
                    /* $('#statusBox').remove();
                     var status = $('<div id="statusBox" class="alert alert-success" role="alert">Changes have been saved.</div>').hide().fadeIn('normal');
                     $('#upload-form').prepend(status);*/
@@ -44,6 +50,8 @@ function HeaderCtrl($scope , BlogService) {
                             errorSpan.show();
                         });
                         $scope.loading = false;
+                    } else {
+                        $scope.status = { mgs: "Error.", clas: "alert-error" };
                     }
                 });
     };

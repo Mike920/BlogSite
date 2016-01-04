@@ -146,7 +146,9 @@ namespace Blog.Controllers.Api
             var resized =Imager.Crop(image, new Rectangle((int)header.X, (int)header.Y, w, h));
 
             string fileName = "header." + header.FileName.Split('.').Last();
-            string path = Path.Combine(ServerTools.Paths.MediaFolderPath(blog.UrlName), fileName);
+            string path = ServerTools.Paths.MediaFolderBlogsPath(blog.UrlName, fileName);
+            if(File.Exists(path)) 
+                File.Delete(path);
             resized.Save(path);
 
             blog.HeaderUrl = ServerTools.RelativePath(path);
@@ -154,7 +156,7 @@ namespace Blog.Controllers.Api
             db.Entry(blog).State = EntityState.Modified;
             db.SaveChanges();
 
-            return Ok();
+            return Ok(new{ HeaderUrl = blog.HeaderUrl});
             /*if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

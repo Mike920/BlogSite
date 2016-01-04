@@ -50,7 +50,7 @@
             <label class="control-label col-md-2">Miniature:</label>
             @*<div class="col-md-12 text-info">Miniature will be resized to 300x200px</div>*@
             <div class="col-md-5">
-                <span class="text-info">Miniature will be resized to 300x250</span>
+                <span class="text-info">Miniature dimensions should be 360x300px, otherwise it will be resized.</span>
                 @Html.HiddenFor(model => model.MiniatureUrl)
                 @Html.ValidationMessageFor(model => model.MiniatureUrl, "", new {@class = "text-danger"})
                 <div id="uploader">
@@ -99,8 +99,8 @@
 
                 // Resize images on clientside if we can
                 resize : {
-                    width : 300,
-                    height : 250,
+                    width : 360,
+                    height : 300,
                     quality : 100,
                     crop: false // crop to exact dimensions
                 },

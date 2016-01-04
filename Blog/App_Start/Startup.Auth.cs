@@ -22,7 +22,7 @@ namespace Blog
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
             // Configure the sign in cookie
-            app.UseCookieAuthentication(new CookieAuthenticationOptions
+        /*    app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                 LoginPath = new PathString("/Account/Login"),
@@ -34,7 +34,24 @@ namespace Blog
                         validateInterval: TimeSpan.FromMinutes(30),
                         regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
                 }
+            });*/
+
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
+            {
+                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+                LoginPath = new PathString("/Account/Login"),
+                Provider = new CookieAuthenticationProvider
+                {
+                    OnApplyRedirect = ctx =>
+                    {
+                        if (!IsApiRequest(ctx.Request))
+                        {
+                            ctx.Response.Redirect(ctx.RedirectUri);
+                        }
+                    }
+                }
             });
+
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // Enables the application to temporarily store user information when they are verifying the second factor in the two-factor authentication process.
@@ -61,6 +78,11 @@ namespace Blog
             //app.UseGoogleAuthentication(
             //    clientId: "",
             //    clientSecret: "");
+        }
+
+        private static bool IsApiRequest(IOwinRequest request)
+        {
+            return request.Path.StartsWithSegments(new PathString("/api"));
         }
     }
 }

@@ -30,6 +30,9 @@
             <form>
                 <div class="box-body ">
                     <div class="col-md-6">
+                        <div class="form-group" ng-hide="status == null" >
+                            <div id="statusBox" ng-class="status.clas" class="alert " role="alert">{{status.msg}}</div>
+                        </div>
                         <div class="form-group">
                             <div class="input-group">
                                 <span class=" input-group-addon btn btn-default btn-file">
@@ -40,11 +43,11 @@
                         </div>
                         <div class="form-group">
                             <div class="image-cropper" style="max-width: 900px;">
-                                <img id="image" ng-src="{{model.HeaderUrl}}" class="image"/>
+                                <img id="image" src="{{model.HeaderUrl}}" class="image"/>
                             </div>
                         </div>
                         <div class="form-group">
-                            <input id="submit" type="button" ng-disabled="loading" ng-click="submit()" value="Save" class="btn btn-default" />
+                            <input id="submit" type="button" ng-disabled="loading || !model.File" ng-click="submit()" value="Save" class="btn btn-default"/>
                         </div>
                     </div>
                 </div>
@@ -136,7 +139,12 @@
         $("#imageInput").change(function() {
             imageChanged(this);
         });
-
+        $("#imageInput").on('dispose', function() {
+            $('#image').attr('style', '');
+            if (jcrop != null) {
+                jcrop.destroy();
+            }
+        });
 
 
     });

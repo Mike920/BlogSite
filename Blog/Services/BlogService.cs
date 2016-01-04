@@ -65,7 +65,7 @@ namespace Blog.Services
 
         private string CreateBlogFolder(string name)
         {
-            string path = Path.Combine(ServerTools.Paths.MediaFolderPath("Blogs"), name);
+            string path = ServerTools.Paths.MediaFolderBlogsPath(name);
             Directory.CreateDirectory(path);
             return path;
         }
@@ -77,7 +77,7 @@ namespace Blog.Services
             string imageDestinationPath = Path.Combine(blogFolder, fileName);
 
             Image img = Image.FromFile(tempImgPath);
-            var resized = Imager.Resize(img, 300, 250, false);
+            var resized = Imager.Resize(img, 360, 300, false);
             resized.Save(imageDestinationPath);
             img.Dispose();
             File.Delete(tempImgPath);

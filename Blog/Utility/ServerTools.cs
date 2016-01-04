@@ -19,9 +19,14 @@ namespace Blog.Utility
                     return HttpContext.Current.Server.MapPath("~/Temp");
                 }
             }
-            public static string MediaFolderPath(string subfolder = "")
+            public static string MediaFolderPath(params string[] subfolders)
             {
-                return HttpContext.Current.Server.MapPath("~/MediaData/" + subfolder);
+                return HttpContext.Current.Server.MapPath("~/MediaData/" + Path.Combine(subfolders)); 
+            }
+
+            public static string MediaFolderBlogsPath(params string[] subfolders)
+            {
+                return HttpContext.Current.Server.MapPath("~/MediaData/Blogs/" + Path.Combine(subfolders)); 
             }
 
 

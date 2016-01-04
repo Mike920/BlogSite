@@ -28,13 +28,12 @@ namespace Blog.Controllers
         [AllowAnonymous]
         public ActionResult Index(int page = 1)
         {
-            var blogs = db.Blogs; //MyProductDataSource.FindAllProducts(); //returns IQueryable<Product> representing an unknown number of products. a thousand maybe?
+           // var blogs = db.Blogs; //MyProductDataSource.FindAllProducts(); //returns IQueryable<Product> representing an unknown number of products. a thousand maybe?
 
-            var onePageOfProducts = blogs.ToPagedList(page, 25); // will only contain 25 products max because of the pageSize
+            var blogs = db.Blogs.ToPagedList(page, 25); // will only contain 25 products max because of the pageSize
 
-            ViewBag.OnePageOfProducts = onePageOfProducts;
 
-            return View();
+            return View(blogs);
         }
 
         public ActionResult ActiveBlog()
