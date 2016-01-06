@@ -3,13 +3,22 @@
     ViewBag.Title = "Default";
 }
 
-<section class="global-page-header">
+<style>
+    .global-page-header {
+        @if (Model.Blog.HeaderUrl != null)
+        {
+            @:background-image: url('@Model.Blog.HeaderUrl')
+        }
+    }
+</style>
+
+<section class="global-page-header" >
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="block">
-                    <h2>Blog With Right Sidebar</h2>
-                    <ol class="breadcrumb">
+                    <h2>@Model.Blog.Name</h2>
+                    @*<ol class="breadcrumb">
                         <li>
                             <a href="index.html">
                                 <i class="ion-ios-home"></i>
@@ -17,7 +26,7 @@
                             </a>
                         </li>
                         <li class="active">Blog</li>
-                    </ol>
+                    </ol>*@
                 </div>
             </div>
         </div>

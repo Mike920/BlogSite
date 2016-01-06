@@ -93,7 +93,7 @@ namespace Blog.Controllers
             if(_service.CreateBlog(model, currentUserId))
                 return RedirectToAction("Index","AdminPanel");
 
-            ViewBag.BlogCategoryId = new SelectList(db.BlogCategories, "CategoryId", "CategoryId");
+            ViewBag.BlogCategoryId = new SelectList(db.BlogCategories, "Id", "Name");
             return View(model);
         }
 

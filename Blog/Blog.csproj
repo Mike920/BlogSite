@@ -288,8 +288,23 @@
     <Content Include="Images\logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="MediaData\Default\default-header.jpg" />
-    <Content Include="MediaData\Default\default-header2.jpg" />
+    <Content Include="MediaData\Default\miniature.jpg" />
+    <Content Include="MediaData\Seed\Headers\1.jpg" />
+    <Content Include="MediaData\Seed\Headers\2.jpg" />
+    <Content Include="MediaData\Seed\Headers\3.jpg" />
+    <Content Include="MediaData\Seed\Headers\4.jpg" />
+    <Content Include="MediaData\Seed\Headers\5.jpg" />
+    <Content Include="MediaData\Seed\Headers\6.jpg" />
+    <Content Include="MediaData\Seed\Miniatures\1.jpg" />
+    <Content Include="MediaData\Seed\Miniatures\10.jpg" />
+    <Content Include="MediaData\Seed\Miniatures\2.jpg" />
+    <Content Include="MediaData\Seed\Miniatures\3.jpg" />
+    <Content Include="MediaData\Seed\Miniatures\4.jpg" />
+    <Content Include="MediaData\Seed\Miniatures\5.jpg" />
+    <Content Include="MediaData\Seed\Miniatures\6.jpg" />
+    <Content Include="MediaData\Seed\Miniatures\7.jpg" />
+    <Content Include="MediaData\Seed\Miniatures\8.jpg" />
+    <Content Include="MediaData\Seed\Miniatures\9.jpg" />
     <Content Include="Scripts\AdminPanel\app.js" />
     <Content Include="Scripts\AdminPanel\app.min.js" />
     <Content Include="Scripts\AdminPanel\demo.js" />
@@ -1355,6 +1370,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\LayoutSettings.cs" />
     <Compile Include="Services\BlogsService.cs" />
+    <Compile Include="Utility\HtmlHelpers.cs" />
     <Compile Include="Utility\ImageHelper.cs" />
     <Compile Include="Utility\RemoteValidationAttribute.cs" />
     <Compile Include="Utility\Sanitizer.cs" />

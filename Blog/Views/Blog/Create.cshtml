@@ -85,6 +85,7 @@
         // Initialize the widget when the DOM is ready
         $(function () {
             var filesNames = [];
+            var fileSelected = ($('#MiniatureUrl').val() == "") ? false : true;
 
             var uploader = $("#uploader").plupload({
                 // General settings
@@ -102,7 +103,7 @@
                     width : 360,
                     height : 300,
                     quality : 100,
-                    crop: false // crop to exact dimensions
+                    crop: true // crop to exact dimensions
                 },
 
                 // Specify what files to browse for
@@ -135,9 +136,13 @@
                     FilesAdded: function(){
                         $('#MiniatureUrl').val('ok');
                         $('#MiniatureUrl').valid();
+                        fileSelected = true;
                     },
-                    FilesRemoved: function () {
+                    FilesRemoved: function (up) {
                         $('#MiniatureUrl').val('');
+                        if (up.files.length == 0) {
+                            fileSelected = false;
+                        }
                     },
                     FileUploaded: function (up, file, info) {
                         var response = $.parseJSON(info.response);
@@ -158,7 +163,12 @@
                 if ($form.valid()) {
                     $('#submitUpload').val('Sending...');
                     $('#submitUpload').attr("disabled", true);
-                    $("#uploader").plupload('start');
+                    if (fileSelected) {
+                        $("#uploader").plupload('start');
+                    } else {
+                        $('#upload-form').submit();
+                    }
+                    
                 }
             });
 

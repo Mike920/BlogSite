@@ -92,7 +92,7 @@ namespace Blog.Controllers.Api
                 postModel.PublishDate = DateTime.Now;
 
             postModel.BlogId = (int)CurrentUser.CurrentBlogId;
-            postModel.UrlName = GenerateUrlName(postModel.Title);
+            postModel.UrlName = ServerTools.GenerateUrlFriendlyString(postModel.Title);
             //todo create tags
 
             db.Posts.Add(postModel);
@@ -101,26 +101,7 @@ namespace Blog.Controllers.Api
             return CreatedAtRoute("DefaultApi", new { id = post.Id }, post);
         }
 
-        private string GenerateUrlName(string title)
-        {
-            // make it all lower case
-            title = title.ToLower();
-            // remove entities
-            title = Regex.Replace(title, @"&\w+;", "");
-            // remove anything that is not letters, numbers, dash, or space
-            title = Regex.Replace(title, @"[^a-z0-9\-\s]", "");
-            // replace spaces
-            title = title.Replace(' ', '-');
-            // collapse dashes
-            title = Regex.Replace(title, @"-{2,}", "-");
-            // trim excessive dashes at the beginning
-            title = title.TrimStart(new[] { '-' });
-            // remove trailing dashes
-            title = title.TrimEnd(new[] { '-' });
 
-         
-            return title;
-        }
 
         // DELETE: api/Posts/5
         [ResponseType(typeof(Post))]

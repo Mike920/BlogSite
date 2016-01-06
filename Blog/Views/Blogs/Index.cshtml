@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<Blog.Models.Blog>
-@using PagedList.Mvc; 
+@using Blog.Utility
+@using PagedList.Mvc;
 @using PagedList;
 @{
     ViewBag.Title = "Index";
@@ -25,9 +26,9 @@
                             </div>
                         </a>
                         <figcaption>
-                            <h4>
+                            <h4 style="height: 40px; overflow: hidden;">
                                 <a href="/Blog/@blog.UrlName">
-                                    @blog.Name
+                                    @Html.Trim(blog.Name,50)
                                 </a>
                             </h4>
                             @*                            <p>

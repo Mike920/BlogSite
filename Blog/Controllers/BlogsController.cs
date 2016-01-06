@@ -30,7 +30,7 @@ namespace Blog.Controllers
         {
            // var blogs = db.Blogs; //MyProductDataSource.FindAllProducts(); //returns IQueryable<Product> representing an unknown number of products. a thousand maybe?
 
-            var blogs = db.Blogs.ToPagedList(page, 25); // will only contain 25 products max because of the pageSize
+            var blogs = db.Blogs.OrderBy(b => b.Visits).ToPagedList(page, 10); // will only contain 25 products max because of the pageSize
 
 
             return View(blogs);

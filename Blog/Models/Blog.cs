@@ -45,7 +45,7 @@ namespace Blog.Models
             Posts = new List<Post>();
             PostCategories = new List<PostCategory>();
             Tags = new List<Tag>();
-            //MiniatureUrl = "/MediaData/Default/default-miniature.jpg"
+            MiniatureUrl = "/MediaData/Default/miniature.jpg";
         }
     }
 }
