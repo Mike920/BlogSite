@@ -59,6 +59,30 @@ namespace Blog.Controllers
             return View("Default/Default",viewModel);
         }
 
+        [AllowAnonymous]
+        public ActionResult Category(string blogName, string id, int page = 1)
+        {
+            if (blogName == null)
+                return HttpNotFound();
+
+            var blog = db.Blogs.FirstOrDefault(b => b.UrlName == blogName);
+            if (blog == null)
+                return HttpNotFound();
+
+            var cat = db.PostCategories.FirstOrDefault(c => c.UrlSlug == id && c.BlogId == blog.Id);
+            if (cat == null)
+                return HttpNotFound();
+
+            var posts = blog.Posts.Where(p => p.Published && p.Category.Id == cat.Id).OrderBy(p => p.PublishDate).ToPagedList(page, postsPerPage);
+            var layoutSettings = blog.LayoutSettings;
+            var viewModel = new DisplayBlog { Blog = blog, Posts = posts, LayoutSettings = layoutSettings };
+
+            ViewBag.Header = cat.Name + " posts";
+
+            return View("Default/Default", viewModel);
+
+          
+        }
 
         [ChildActionOnly]
         [AllowAnonymous]
@@ -66,6 +90,8 @@ namespace Blog.Controllers
         {
             var blog =  db.Blogs.Find(blogId);
             var categories = blog != null ? blog.PostCategories : new List<PostCategory>();
+
+            ViewBag.BlogUrl = blog.UrlName;
 
             return View("Default/Widgets/_CategoriesWidget",categories);
         }
@@ -77,6 +103,8 @@ namespace Blog.Controllers
             var blog = db.Blogs.Find(blogId);
             var posts = blog != null ? blog.Posts.OrderBy( p => p.PublishDate).Take(5) 
                 : new List<Post>();
+
+            ViewBag.BlogUrl = blog.UrlName;
 
             return View("Default/Widgets/_RecentPostsWidget", posts);
         }

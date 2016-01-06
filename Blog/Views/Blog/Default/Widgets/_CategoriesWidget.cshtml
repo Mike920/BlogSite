@@ -6,7 +6,7 @@
         @foreach (var cat in Model)
         {
             <li>
-                <a href="">@cat.Name</a> <span class="badge">1</span>
+            <a href="/Blog/@ViewBag.BlogUrl/category/@cat.UrlSlug">@cat.Name</a> <span class="badge">1</span>
             </li>
         }
     </ul>

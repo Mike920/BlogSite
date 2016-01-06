@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Blog.Models;
+using Blog.ViewModels;
 
 namespace Blog.Controllers
 {
@@ -27,9 +28,14 @@ namespace Blog.Controllers
             Post post = db.Posts.Find(postId);
             if (post == null)
                 return HttpNotFound();
-            
-            return View("Themes/Default",post);
+            var blog = db.Blogs.Find(post.BlogId);
+            var layout = db.LayoutSettings.Find(blog.Id);
+            var model = new DisplayPost {Post = post, Blog = blog, LayoutSettings = layout};
+
+            return View("Themes/Default",model);
         }
+
+
 
         // GET: Posts/Create
         public ActionResult Create()

@@ -37,9 +37,17 @@
 </section><!--/#Page header-->
 <section id="blog-full-width">
     <div class="container">
+        @if (ViewBag.Header != null)
+        {
+            <div class="section-heading">
+                <h1 class="title wow fadeInDown" data-wow-delay=".3s">@ViewBag.Header</h1>
+            </div>
+        }
         <div class="row">
             @if (Model.LayoutSettings.WidgetsColumnSide == "left")
-            {   Html.RenderPartial("Default/Widgets/_Widgets",Model.LayoutSettings);}
+            {
+                Html.RenderPartial("Default/Widgets/_Widgets", Model.LayoutSettings);
+            }
             <div class="col-md-8">
                 @foreach (var post in Model.Posts)
                 {
@@ -56,7 +64,7 @@
                                 <span>by <a href="">Admin</a></span>
                                 <span><a href="">@post.Category.Name</a></span>
                             </div>
-                            <div>@Html.Raw(Html.Trim(post.Content,500))</div>
+                            <div>@Html.Raw(Html.Trim(post.Content, 500))</div>
                             <a href="@Model.Blog.UrlName/@post.Id/@post.UrlName" class="btn btn-dafault btn-details">Continue Reading</a>
                         </div>
 
@@ -64,7 +72,9 @@
                 }
             </div>
             @if (Model.LayoutSettings.WidgetsColumnSide == "right")
-            { Html.RenderPartial("Default/Widgets/_Widgets", Model.LayoutSettings); }
+            {
+                Html.RenderPartial("Default/Widgets/_Widgets", Model.LayoutSettings);
+            }
         </div>
     </div>
 </section>

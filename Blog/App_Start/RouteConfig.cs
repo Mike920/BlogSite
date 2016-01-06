@@ -23,6 +23,12 @@ namespace Blog
 
             routes.MapRoute(
                name: "Post",
+               url: "Blog/{blogName}/category/{id}",
+               defaults: new { controller = "Blog", action = "Category", postName = "" }
+           );
+
+            routes.MapRoute(
+               name: "PostCategory",
                url: "Blog/{blogName}/{postId}/{postName}",
                defaults: new { controller = "Posts", action = "Details", postName="" }
            );
