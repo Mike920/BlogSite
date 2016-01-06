@@ -4,13 +4,15 @@
 @using PagedList;
 @{
     ViewBag.Title = "Index";
+    ViewBag.Header = ViewBag.Header ?? "Most Popular Blogs";
+    ViewBag.Action = ViewBag.Action ?? "Index";
 }
 
 
 <section id="works" class="works">
     <div class="container">
         <div class="section-heading">
-            <h1 class="title wow fadeInDown" data-wow-delay=".3s">Most Popular Blogs</h1>
+            <h1 class="title wow fadeInDown" data-wow-delay=".3s">@ViewBag.Header</h1>
         </div>
         <div class="row">
             @foreach(var blog in Model)
@@ -42,4 +44,4 @@
     </div>
 </section>
 
-@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))
+@Html.PagedListPager((IPagedList)Model, page => Url.Action(ViewBag.Action, new { page }), new PagedListRenderOptions { Display = PagedListDisplayMode.IfNeeded })

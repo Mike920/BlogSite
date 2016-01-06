@@ -13,7 +13,7 @@ namespace Blog.Models
         public LayoutSettings()
         {
             WidgetsColumnSide = "right";
-            Widgets = "";
+            Widgets = "Categories;Recent Posts;";
         }
          [Key, ForeignKey("Blog")]
         public int Id { get; set; }

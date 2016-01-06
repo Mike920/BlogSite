@@ -140,7 +140,7 @@ namespace Blog.Controllers.Api
                 image = Image.FromStream(ms);
                 
             }
-            int w = 940;
+            int w = 1140;
             int h = 279;
 
             var resized =Imager.Crop(image, new Rectangle((int)header.X, (int)header.Y, w, h));

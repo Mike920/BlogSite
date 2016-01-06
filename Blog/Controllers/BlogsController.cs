@@ -16,6 +16,8 @@ namespace Blog.Controllers
         private BlogDbContext db = new BlogDbContext();
         private BlogsService _service;
 
+        private const int postsPerPage = 12;
+
         public BlogsController()
         {
             _service = new BlogsService(ModelState);
@@ -30,10 +32,37 @@ namespace Blog.Controllers
         {
            // var blogs = db.Blogs; //MyProductDataSource.FindAllProducts(); //returns IQueryable<Product> representing an unknown number of products. a thousand maybe?
 
-            var blogs = db.Blogs.OrderBy(b => b.Visits).ToPagedList(page, 10); // will only contain 25 products max because of the pageSize
+            var blogs = db.Blogs.OrderBy(b => b.Visits).Take(12).ToPagedList(page, postsPerPage); // will only contain 25 products max because of the pageSize
 
 
             return View(blogs);
+        }
+
+        [AllowAnonymous]
+        public ActionResult Category(string id, int page = 1)
+        {
+            IEnumerable<Models.Blog> blogs;
+            if (id == null)
+            {
+                blogs = db.Blogs.OrderBy(b => b.Name).ToPagedList(page, postsPerPage);
+                ViewBag.Header = "All blogs";
+            }
+            else
+            {
+                var cat = db.BlogCategories.FirstOrDefault(c => c.UrlSlug == id);
+
+                if (cat == null)
+                    return HttpNotFound();
+
+                blogs = db.Blogs.Where(b => b.Category.UrlSlug == id)
+                    .OrderBy(b => b.Name)
+                    .ToPagedList(page, postsPerPage);
+
+                ViewBag.Header = cat.Name + " blogs";
+            }
+
+            ViewBag.Action = "Category";
+            return View("Index",blogs);
         }
 
         public ActionResult ActiveBlog()

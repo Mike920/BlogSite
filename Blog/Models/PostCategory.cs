@@ -18,18 +18,13 @@ namespace Blog.Models
         [Required]
         public  string Name { get; set; }
 
+        public string UrlSlug { get; set; }
+
         public int BlogId { get; set; }
         public virtual Blog Blog { get; set; }
         public virtual ICollection<Post> Posts
         { get; set; }
-
-        public string UrlPart
-        {
-            get
-            {
-                //todo convert title to some url friendly text
-                throw new NotImplementedException();
-            }
-        }
+   
+        
     }
 }

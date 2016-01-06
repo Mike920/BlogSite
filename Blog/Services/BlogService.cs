@@ -73,7 +73,7 @@ namespace Blog.Services
             _db.Blogs.Add(blog);
             _db.SaveChanges();
 
-            var postCategory = new PostCategory {Name = "General", BlogId = blog.Id };
+            var postCategory = new PostCategory {Name = "General", UrlSlug = "general", BlogId = blog.Id };
             _db.PostCategories.Add(postCategory);
 
             var user = _db.Users.Find(userId);

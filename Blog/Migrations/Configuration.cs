@@ -31,9 +31,9 @@ namespace Blog.Migrations
 
             var categories = new[]
             {
-                new BlogCategory { Name = "Lifestyle" },
-                new BlogCategory { Name = "Entertainment" },
-                new BlogCategory { Name = "Food" }
+                new BlogCategory { Name = "Lifestyle", UrlSlug = "ligestyle"},
+                new BlogCategory { Name = "Entertainment", UrlSlug = "Entertainment"},
+                new BlogCategory { Name = "Food", UrlSlug = "food"}
             };
             context.BlogCategories.AddOrUpdate(categories);
             context.SaveChanges();
@@ -46,9 +46,9 @@ namespace Blog.Migrations
             {
                 postCategories.AddRange(new PostCategory[]
                 {
-                    new PostCategory { Name = "General", BlogId = blog.Id},
-                    new PostCategory { Name = "Entertainment", BlogId = blog.Id },
-                    new PostCategory { Name = "Food", BlogId = blog.Id }
+                    new PostCategory { Name = "General", UrlSlug = "general", BlogId = blog.Id},
+                    new PostCategory { Name = "Entertainment", UrlSlug = "entertainment", BlogId = blog.Id },
+                    new PostCategory { Name = "Food", UrlSlug = "food", BlogId = blog.Id }
                 });
             }
             context.PostCategories.AddOrUpdate(postCategories.ToArray());

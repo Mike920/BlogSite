@@ -56,11 +56,8 @@
                 <!-- /logo -->
             </div>
             <!-- main menu -->
-            <nav class="collapse navbar-collapse navbar-right" role="navigation">
-                <div class="main-menu">
-                    @Html.Partial("_LoginPartial")
-                </div>
-            </nav>
+                @{ Html.RenderAction("MainMenu", "Common");}
+
             <!-- /main nav -->
         </div>
     </header>

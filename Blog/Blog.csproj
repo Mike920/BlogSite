@@ -457,6 +457,7 @@
     <Content Include="SPA\Controllers\Header.js" />
     <Content Include="Views\NgPartials\EditHeader.cshtml" />
     <Content Include="Views\Blogs\Index.cshtml" />
+    <Content Include="Views\Shared\_MainMenu.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -1344,6 +1345,7 @@
     <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\BlogsController.cs" />
     <Compile Include="Controllers\FileController.cs" />
+    <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\NgPartialsController.cs" />
@@ -1366,6 +1368,10 @@
     <Compile Include="Migrations\201512291927153_AddHeaderUrlAndMiniatureUrlToBlog.cs" />
     <Compile Include="Migrations\201512291927153_AddHeaderUrlAndMiniatureUrlToBlog.Designer.cs">
       <DependentUpon>201512291927153_AddHeaderUrlAndMiniatureUrlToBlog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601061836433_AddUrlSlugs.cs" />
+    <Compile Include="Migrations\201601061836433_AddUrlSlugs.Designer.cs">
+      <DependentUpon>201601061836433_AddUrlSlugs.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\LayoutSettings.cs" />
@@ -1498,6 +1504,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201512291927153_AddHeaderUrlAndMiniatureUrlToBlog.resx">
       <DependentUpon>201512291927153_AddHeaderUrlAndMiniatureUrlToBlog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601061836433_AddUrlSlugs.resx">
+      <DependentUpon>201601061836433_AddUrlSlugs.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

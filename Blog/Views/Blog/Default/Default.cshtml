@@ -1,4 +1,7 @@
-﻿@model Blog.ViewModels.DisplayBlog
+﻿@using Blog.Utility
+@using PagedList
+@using PagedList.Mvc
+@model Blog.ViewModels.DisplayBlog
 @{
     ViewBag.Title = "Default";
 }
@@ -12,7 +15,7 @@
     }
 </style>
 
-<section class="global-page-header" >
+<section class="global-page-header" style="padding-top: 70px; padding-bottom: 75px; height: 279px;" >
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -41,64 +44,24 @@
                 @foreach (var post in Model.Posts)
                 {
                     <article class="wow fadeInDown" data-wow-delay=".3s" data-wow-duration="500ms">
-                        <div class="blog-post-image">
+                        @*<div class="blog-post-image">
                             <a href="post-fullwidth.html"><img class="img-responsive" src="images/blog/post-1.jpg" alt=""/></a>
-                        </div>
+                        </div>*@
                         <div class="blog-content">
                             <h2 class="blogpost-title">
-                                <a href="post-fullwidth.html">@post.Title</a>
+                                <a href="@Model.Blog.UrlName/@post.Id/@post.UrlName">@post.Title</a>
                             </h2>
                             <div class="blog-meta">
                                 <span>@Html.DisplayFor(p => post.PublishDate)</span>
                                 <span>by <a href="">Admin</a></span>
-                                <span><a href="">@post.Category.Name</a>,<a href="">people</a></span>
+                                <span><a href="">@post.Category.Name</a></span>
                             </div>
-                            <div>@Html.Raw(post.Content)</div>
-                            <a href="single-post.html" class="btn btn-dafault btn-details">Continue Reading</a>
+                            <div>@Html.Raw(Html.Trim(post.Content,500))</div>
+                            <a href="@Model.Blog.UrlName/@post.Id/@post.UrlName" class="btn btn-dafault btn-details">Continue Reading</a>
                         </div>
 
                     </article>
                 }
-                <article class="wow fadeInDown" data-wow-delay=".5s" data-wow-duration="500ms">
-                    <div class="blog-post-image">
-                        <a href="post-fullwidth.html"><img class="img-responsive" src="images/blog/post-2.jpg" alt=""/></a>
-                    </div>
-                    <div class="blog-content">
-                        <h2 class="blogpost-title">
-                            <a href="post-fullwidth.html">Space shouldn’t be the final frontier</a>
-                        </h2>
-                        <div class="blog-meta">
-                            <span>Dec 11, 2020</span>
-                            <span>by <a href="">Admin</a></span>
-                            <span><a href="">business</a>,<a href="">people</a></span>
-                        </div>
-                        <p>
-                            Ultrices posuere cubilia curae curabitur sit amet tortor ut massa commodo. Vestibulum consectetur euismod malesuada tincidunt cum. Sed ullamcorper dignissim consectetur ut tincidunt eros sed sapien consectetur dictum. Pellentesques sed volutpat ante, cursus port. Praesent mi magna, penatibus et magniseget dis parturient montes sed quia consequuntur magni dolores eos qui ratione.
-                        </p>
-                        <a href="single-post.html" class="btn btn-dafault btn-details">Continue Reading</a>
-                    </div>
-
-                </article>
-                <article class="wow fadeInDown" data-wow-delay=".7s" data-wow-duration="500ms">
-                    <div class="blog-post-image">
-                        <a href="post-fullwidth.html"><img class="img-responsive" src="images/blog/post-3.jpg" alt=""/></a>
-                    </div>
-                    <div class="blog-content">
-                        <h2 class="blogpost-title">
-                            <a href="post-fullwidth.html">Space shouldn’t be the final frontier</a>
-                        </h2>
-                        <div class="blog-meta">
-                            <span>Dec 11, 2020</span>
-                            <span>by <a href="">Admin</a></span>
-                            <span><a href="">business</a>,<a href="">people</a></span>
-                        </div>
-                        <p>
-                            Ultrices posuere cubilia curae curabitur sit amet tortor ut massa commodo. Vestibulum consectetur euismod malesuada tincidunt cum. Sed ullamcorper dignissim consectetur ut tincidunt eros sed sapien consectetur dictum. Pellentesques sed volutpat ante, cursus port. Praesent mi magna, penatibus et magniseget dis parturient montes sed quia consequuntur magni dolores eos qui ratione.
-                        </p>
-                        <a href="single-post.html" class="btn btn-dafault btn-details">Continue Reading</a>
-                    </div>
-
-                </article>
             </div>
             @if (Model.LayoutSettings.WidgetsColumnSide == "right")
             { Html.RenderPartial("Default/Widgets/_Widgets", Model.LayoutSettings); }
@@ -106,3 +69,4 @@
     </div>
 </section>
 
+@Html.PagedListPager((IPagedList)Model.Posts, page => Model.Blog.UrlName + "?page="+page, new PagedListRenderOptions { Display = PagedListDisplayMode.IfNeeded })

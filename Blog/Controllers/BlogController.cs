@@ -13,6 +13,7 @@ using Blog.Utility;
 using Blog.Services;
 using Blog.ViewModels;
 using Microsoft.AspNet.Identity;
+using PagedList;
 
 namespace Blog.Controllers
 {
@@ -22,6 +23,7 @@ namespace Blog.Controllers
         private BlogDbContext db = new BlogDbContext();
         private BlogService _service;
 
+        private const int postsPerPage = 8;
         public User CurrentUser 
         {
             get { return db.Users.Find(User.Identity.GetUserId());} 
@@ -41,12 +43,13 @@ namespace Blog.Controllers
 
 
         [AllowAnonymous]
-        public ActionResult Display(string blogName)
+        public ActionResult Display(string blogName, int page=1)
         {
             var blog = db.Blogs.FirstOrDefault(b => b.UrlName == blogName);
             if (blog == null)
                 return HttpNotFound();
-            var posts = blog.Posts.Where(p => p.Published);
+
+            var posts = blog.Posts.Where(p => p.Published).OrderBy(p => p.PublishDate).ToPagedList(page, postsPerPage);
             var layoutSettings = blog.LayoutSettings;
             var viewModel = new DisplayBlog {Blog = blog, Posts = posts, LayoutSettings = layoutSettings};
             //var posts = db.Posts.Where(p => p.Blog.Name == blogName && p.Published);
