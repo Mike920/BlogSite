@@ -1399,6 +1399,7 @@
     <Compile Include="ViewModels\Blog\DisplayBlog.cs" />
     <Compile Include="ViewModels\Blog\EditBlogViewModel.cs" />
     <Compile Include="ViewModels\Blog\EditBlogHeader.cs" />
+    <Compile Include="ViewModels\Blog\RecentPostsViewModel.cs" />
     <Compile Include="ViewModels\Post\DisplayPost.cs" />
     <Compile Include="ViewModels\User\DisplayUser.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />

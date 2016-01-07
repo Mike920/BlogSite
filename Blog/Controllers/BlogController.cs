@@ -12,6 +12,7 @@ using Blog.Models;
 using Blog.Utility;
 using Blog.Services;
 using Blog.ViewModels;
+using Blog.ViewModels.Blog;
 using Microsoft.AspNet.Identity;
 using PagedList;
 
@@ -23,7 +24,7 @@ namespace Blog.Controllers
         private BlogDbContext db = new BlogDbContext();
         private BlogService _service;
 
-        private const int postsPerPage = 8;
+        private const int postsPerPage = 5;
         public User CurrentUser 
         {
             get { return db.Users.Find(User.Identity.GetUserId());} 
@@ -79,6 +80,7 @@ namespace Blog.Controllers
 
             ViewBag.Header = cat.Name + " posts";
 
+            ViewBag.Action = "/category/" + cat.UrlSlug;
             return View("Default/Default", viewModel);
 
           
@@ -104,9 +106,13 @@ namespace Blog.Controllers
             var posts = blog != null ? blog.Posts.OrderBy( p => p.PublishDate).Take(5) 
                 : new List<Post>();
 
-            ViewBag.BlogUrl = blog.UrlName;
+            RecentPostsViewModel vm = new RecentPostsViewModel
+            {
+                BlogUrlName = blog.UrlName,
+                Posts = posts
+            };
 
-            return View("Default/Widgets/_RecentPostsWidget", posts);
+            return View("Default/Widgets/_RecentPostsWidget", vm);
         }
 
         [HttpGet]

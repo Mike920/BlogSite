@@ -1,13 +1,13 @@
-﻿@model IEnumerable<Blog.Models.Post>
+﻿@model Blog.ViewModels.Blog.RecentPostsViewModel
 
 <div class="recent-post widget">
     <h3>Recent Posts</h3>
 
     <ul>
-        @foreach (var post in Model)
+        @foreach (var post in Model.Posts)
         {
             <li>
-                <a href="#">@post.Title</a><br>
+                <a href="/Blog/@Model.BlogUrlName/@post.Id/@post.UrlName">@post.Title</a><br>
                 <time>@Html.DisplayFor(p => post.PublishDate)</time>
             </li>
         }

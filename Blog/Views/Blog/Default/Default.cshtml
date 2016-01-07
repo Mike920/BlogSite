@@ -4,6 +4,7 @@
 @model Blog.ViewModels.DisplayBlog
 @{
     ViewBag.Title = "Default";
+    ViewBag.Action = ViewBag.Action ?? "";
 }
 
 <style>
@@ -57,7 +58,7 @@
                         </div>*@
                         <div class="blog-content">
                             <h2 class="blogpost-title">
-                                <a href="@Model.Blog.UrlName/@post.Id/@post.UrlName">@post.Title</a>
+                                <a href="/Blog/@Model.Blog.UrlName/@post.Id/@post.UrlName">@post.Title</a>
                             </h2>
                             <div class="blog-meta">
                                 <span>@Html.DisplayFor(p => post.PublishDate)</span>
@@ -65,7 +66,7 @@
                                 <span><a href="">@post.Category.Name</a></span>
                             </div>
                             <div>@Html.Raw(Html.Trim(post.Content, 500))</div>
-                            <a href="@Model.Blog.UrlName/@post.Id/@post.UrlName" class="btn btn-dafault btn-details">Continue Reading</a>
+                            <a href="/Blog/@Model.Blog.UrlName/@post.Id/@post.UrlName" class="btn btn-dafault btn-details">Continue Reading</a>
                         </div>
 
                     </article>
@@ -79,4 +80,4 @@
     </div>
 </section>
 
-@Html.PagedListPager((IPagedList)Model.Posts, page => Model.Blog.UrlName + "?page="+page, new PagedListRenderOptions { Display = PagedListDisplayMode.IfNeeded })
+@Html.PagedListPager((IPagedList)Model.Posts, page => "/Blog/" + Model.Blog.UrlName + ViewBag.Action + "?page="+page, new PagedListRenderOptions { Display = PagedListDisplayMode.IfNeeded })

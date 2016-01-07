@@ -74,16 +74,17 @@ namespace Blog.Migrations
         {
             var posts = new List<Post>();
             int counter = 0;
-
+            
             foreach (var blog in blogs)
                 for (int i = 0; i < 20; i++)
                 {
+                    var categories = blog.PostCategories.ToList();
                     var title = GetRandomSentence();
                     posts.Add(new Post
                     {
                         BlogId = blog.Id,
                         Title = title,
-                        CategoryId = postCategories[counter % postCategories.Count].Id,
+                        CategoryId = categories[counter % categories.Count].Id,
                         Content = GetRandomSentences(Rand.Next(10,30)),
                         PublishDate = DateTime.Now.AddDays(Rand.Next(0,3000) * -1),
                         UrlName = ServerTools.GenerateUrlFriendlyString(title),
@@ -184,7 +185,7 @@ namespace Blog.Migrations
                         UserId = user.Id,
                         CategoryId = categories[counter%categories.Length].Id,
                         Visits = Rand.Next(0, 5000),
-                        HeaderUrl = GetNextHeader()
+                        HeaderUrl = GetRandomHeader()
                     });
                     counter++;
                 }
@@ -210,15 +211,12 @@ namespace Blog.Migrations
 
         }
 
-        private static int headerFileNumber = 0;
-        private static string GetNextHeader()
+        //private static int headerFileNumber = 0;
+        private static string GetRandomHeader()
         {
             string[] filePaths = Directory.GetFiles(ServerTools.Paths.MediaFolderPath("Seed", "Headers"));
-
-            if (headerFileNumber >= filePaths.Length)
-                headerFileNumber = 0;
-            return ServerTools.RelativePath(filePaths[headerFileNumber++]);
-
+            int filenumber = Rand.Next(0, filePaths.Length - 1);
+            return ServerTools.RelativePath(filePaths[filenumber]);
         }
 
         private static string GetRandomSentences(int count)
@@ -245,7 +243,7 @@ namespace Blog.Migrations
 
         private static List<string> UniqueWords
         {
-            get { return loremIpsum.Split(' ', '.').Where(w => w.Length > 2).Select(w => w.Trim()).Distinct().ToList(); }
+            get { return loremIpsum.Split(' ', '.').Where(w => w.Length > 2).Select(w => ServerTools.GenerateUrlFriendlyString(w.Trim())).Distinct().ToList(); }
         }
 
         private static List<string> Sentences
