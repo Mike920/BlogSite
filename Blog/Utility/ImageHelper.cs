@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,9 +56,11 @@ namespace Blog.Utility
             }
             using (System.Drawing.Graphics grPhoto = System.Drawing.Graphics.FromImage(bmPhoto))
             {
-                /*grPhoto.InterpolationMode = _interpolationMode;
-                grPhoto.CompositingQuality = _compositingQuality;
-                grPhoto.SmoothingMode = _smoothingMode;*/
+                /*grPhoto.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                grPhoto.CompositingQuality = CompositingQuality.HighQuality;
+                grPhoto.SmoothingMode = SmoothingMode.HighQuality;
+                grPhoto.PixelOffsetMode = PixelOffsetMode.HighQuality;*/
+
 
                 Rectangle to = new System.Drawing.Rectangle((int)Math.Round(destX), (int)Math.Round(destY), destWidth, destHeight);
                 Rectangle from = new System.Drawing.Rectangle(sourceX, sourceY, sourceWidth, sourceHeight);

@@ -284,6 +284,7 @@
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="Content\tinyeditor.css" />
+    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Images\logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -453,11 +454,16 @@
     <Content Include="Scripts\Jcrop\jquery.color.js" />
     <Content Include="Scripts\Jcrop\jquery.Jcrop.css" />
     <Content Include="Scripts\Jcrop\jquery.Jcrop.js" />
+    <Content Include="SPA\Controllers\Menu.js" />
     <Content Include="SPA\Controllers\Appearance.js" />
     <Content Include="SPA\Controllers\Header.js" />
+    <Content Include="SPA\Services\DashboardService.js" />
     <Content Include="Views\NgPartials\EditHeader.cshtml" />
     <Content Include="Views\Blogs\Index.cshtml" />
     <Content Include="Views\Shared\_MainMenu.cshtml" />
+    <Content Include="Scripts\AdminPanel\app.min.js.map">
+      <DependentUpon>app.min.js</DependentUpon>
+    </Content>
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -1312,7 +1318,7 @@
     <Content Include="SPA\Controllers\Dashboard.js" />
     <Content Include="SPA\Services\LayoutSettingsService.js" />
     <Content Include="SPA\Services\PostCategoryService.js" />
-    <Content Include="SPA\Services\HelpersService.js" />
+    <Content Include="SPA\Services\Helpers.js" />
     <Content Include="SPA\Services\UserService.js" />
     <Content Include="SPA\Services\PostService .js" />
     <Content Include="SPA\Services\BlogService.js" />
@@ -1338,6 +1344,7 @@
     <Compile Include="Controllers\Api\AccountsController.cs" />
     <Compile Include="Controllers\Api\BlogsController.cs" />
     <Compile Include="Controllers\Api\CurrentUserController.cs" />
+    <Compile Include="Controllers\Api\DashboardController.cs" />
     <Compile Include="Controllers\Api\LayoutSettingsController.cs" />
     <Compile Include="Controllers\Api\PostCategoriesController.cs" />
     <Compile Include="Controllers\Api\PostsController.cs" />
@@ -1395,6 +1402,7 @@
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="ViewModels\AdminPanel\BlogInformationViewModel.cs" />
     <Compile Include="ViewModels\AdminViewModel.cs" />
+    <Compile Include="ViewModels\Api\DashboardViewModel.cs" />
     <Compile Include="ViewModels\Blog\CreateBlogViewModel.cs" />
     <Compile Include="ViewModels\Blog\DisplayBlog.cs" />
     <Compile Include="ViewModels\Blog\EditBlogViewModel.cs" />

@@ -4,10 +4,10 @@ angular
     .module('app')
     .controller('HeaderCtrl', HeaderCtrl);
 
-HeaderCtrl.$inject = ['$scope', 'BlogService'];
+HeaderCtrl.$inject = ['$scope', 'BlogService', 'Helpers'];
 
 
-function HeaderCtrl($scope , BlogService) {
+function HeaderCtrl($scope , BlogService, Helpers) {
 
     $scope.loading = true;
     $scope.model = {};
@@ -18,10 +18,7 @@ function HeaderCtrl($scope , BlogService) {
             $scope.loading = false;
         },
         function (error) {
-            $scope.status = { mgs: "Error.", clas: "alert-error" };
-            $('#statusBox').remove();
-            var status = $('<div id="statusBox" class="alert alert-error" role="alert">Connection error.</div>').hide().fadeIn('normal');
-            $('#upload-form').prepend(status);
+            $scope.status = Helpers.error('Error');
             $scope.loading = false;
         });
 

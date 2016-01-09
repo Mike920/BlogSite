@@ -11,7 +11,7 @@ function BlogSettingsCtrl($scope, $routeParams, BlogService) {
 
     $scope.loading = true;
 
-    BlogService.get({ id: $routeParams.id },
+    BlogService.get({ currentBlog: true },
         function (model) {
             $scope.model = model;
             $scope.loading = false;

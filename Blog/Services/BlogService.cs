@@ -121,25 +121,26 @@ namespace Blog.Services
             return imageDestinationPath;
         }
 
-
+        private static object Lock = new object();
         public void IncrementVisitCounter(HttpContextBase httpContext, int blogId)
         {
             string key = "visits" + blogId;
-            int value = httpContext.Application[key] as int? ?? 0;
-
-            httpContext.Application[key] = ++value;
-
-            if (value >= 2)
+            int value;
+            bool limitReached = false;
+            lock (Lock)
             {
-                var blog = _db.Blogs.Find(blogId);
+                value = (httpContext.Application[key] as int? ?? 0 ) + 1;
+                limitReached = value >= 2;
+                httpContext.Application[key] = limitReached ? 0 : value;
+            }
+            if (limitReached)
+            {
+                 var blog = _db.Blogs.Find(blogId);
                 blog.Visits += value;
 
                 _db.Entry(blog).State = EntityState.Modified;
-                _db.SaveChanges();
-
-                httpContext.Application[key] = 0;
+                _db.SaveChanges();  
             }
-
         }
     }
 }

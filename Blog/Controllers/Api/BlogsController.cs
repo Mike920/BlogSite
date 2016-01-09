@@ -42,7 +42,7 @@ namespace Blog.Controllers.Api
             return db.Blogs.ProjectTo<EditBlogViewModel>();
         }
 
-        // GET: api/Blogs/5
+/*        // GET: api/Blogs/5
         [ResponseType(typeof(EditBlogViewModel))]
         public IHttpActionResult GetBlog(int id)
         {
@@ -53,7 +53,7 @@ namespace Blog.Controllers.Api
             }
             var vm = Mapper.Map<EditBlogViewModel>(blog);
             return Ok(vm);
-        }
+        }*/
 
         [Authorize]
         [ResponseType(typeof(EditBlogViewModel))]

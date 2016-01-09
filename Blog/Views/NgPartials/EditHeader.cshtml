@@ -8,23 +8,6 @@
     </h1>
 </section>
 
-@*<div class="form-horizontal">
-
-        <label for="exampleInputFile">File input</label>
-        <div class="form-group">
-            <div class="input-group col-md-5">
-                <span class=" input-group-addon btn btn-default btn-file">
-                    Browse <input id="imageInput" type="file" accept='image/*'>
-                </span>
-                <input readonly="readonly" id="MiniatureUrl" class="form-control" type="text">
-            </div>
-        </div>
-
-        <div class="image-cropper form-group col-md-8  ">
-            <img id="image" class="image" style="width: 100%; height: 100%;"/>
-        </div>
-        <textarea>dfghd</textarea>
-    </div>*@
 <section class="content">
         <div class="box box-primary">
             <form>
@@ -54,31 +37,20 @@
             </form>
         </div>
 </section>
-@*TODO Create view model with file and send using angular*@
+
 
 <link href="~/Scripts/Jcrop/jquery.Jcrop.css" rel="stylesheet" />
 <script src="~/Scripts/Jcrop/jquery.color.js"></script>
 <script src="~/Scripts/Jcrop/jquery.Jcrop.js"></script>
 
-<style>
-    /*#image {
-        max-width: 900px;
-    }*/
-</style>
 
 <script>
     //@@ sourceURL=filename.js
     $(function () {
         var w = 1140;
         var h = 279;
-        var x = 0;
-        var y = 0;
 
         function ChangeCrop(e) {
-            //  w = e.w;
-            //  h = e.h;
-            //  x = e.x;
-            //  y = e.y;
             var scope = angular.element($("#image")).scope();
             scope.$apply(function () {
                 scope.model.X = e.x;
@@ -149,16 +121,4 @@
 
     });
 
-/*    $(document).on('change', '.btn-file :file', function () {
-        var input = $(this),
-            numFiles = input.get(0).files ? input.get(0).files.length : 1,
-            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-        input.trigger('fileselect', [numFiles, label]);
-    });
-    $(document).ready(function () {
-        $('.btn-file :file').on('fileselect', function (event, numFiles, label) {
-            console.log(numFiles);
-            console.log(label);
-        });
-    });*/
 </script>
