@@ -111,6 +111,11 @@ namespace Blog.Models
         {
             return user.GenerateUserIdentityAsync((UserManager)UserManager);
         }
+        public async Task<SignInStatus> PasswordEmailSignInAsync(string email, string password, bool isPersistent, bool shouldLockout)
+        {
+            var user = UserManager.FindByEmail(email);
+            return await PasswordSignInAsync(user.UserName, password, isPersistent, shouldLockout);
+        }
 
         public static ApplicationSignInManager Create(IdentityFactoryOptions<ApplicationSignInManager> options, IOwinContext context)
         {

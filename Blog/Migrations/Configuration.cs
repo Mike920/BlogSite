@@ -41,6 +41,13 @@ namespace Blog.Migrations
             var users = PopulateUsers(context);
             var blogs = PopulateBlogs(context,users,categories);
 
+            foreach (var user in users)
+            {
+                user.CurrentBlogId = user.Blogs.First().Id;
+            }
+            context.Users.AddOrUpdate(users);
+            context.SaveChanges();
+
             var postCategories = new List<PostCategory>();
             foreach (var blog in blogs)
             {
@@ -153,7 +160,7 @@ namespace Blog.Migrations
                 new User { UserName = "AdamSmith", Email = "smith@mail.com" },
                 new User { UserName = "JohnJagger", Email = "jj@mail.com" },
                 new User { UserName = "KevinJonson", Email = "kevinjonson@mail.com" },
-                new User { UserName = "MichaelKerry", Email = "smith@mail.com" },
+                new User { UserName = "MichaelKerry", Email = "kerry@mail.com" },
                 new User { UserName = "AmandaF", Email = "amanda@mail.com" }
             };
             string password = "!Q2w3e4r5t";
