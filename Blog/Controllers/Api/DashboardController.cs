@@ -12,22 +12,8 @@ using Microsoft.AspNet.Identity;
 namespace Blog.Controllers.Api
 {
     [Authorize]
-    public class DashboardController : ApiController
+    public class DashboardController : BaseApiController
     {
-        BlogDbContext db = new BlogDbContext();
-
-
-
-        public int? CurrentBlogId
-        {
-            get
-            {
-                string userId = User.Identity.GetUserId();
-                return db.Users.Where(u => u.Id == userId)
-                        .Select(u => u.CurrentBlogId)
-                        .SingleOrDefault();
-            }
-        }
 
         // GET: api/Dashboard
         public IHttpActionResult Get()
@@ -37,10 +23,10 @@ namespace Blog.Controllers.Api
 
             var userId = User.Identity.GetUserId();
 
-            var blogs = db.Blogs.Where(b => b.UserId == userId)
+            var blogs = Db.Blogs.Where(b => b.UserId == userId)
                         .Select(blog => new BlogDashboard {Id = blog.Id, Name = blog.Name});
 
-            var currentBlog = db.Blogs.Where(b => b.Id == CurrentBlogId)
+            var currentBlog = Db.Blogs.Where(b => b.Id == CurrentBlogId)
                 .Select( blog => new BlogStatistics {Id = blog.Id, Name = blog.Name, Visits = blog.Visits, TotalPosts = blog.Posts.Count})
                 .SingleOrDefault();
 
@@ -65,17 +51,17 @@ namespace Blog.Controllers.Api
         public IHttpActionResult Put(int id)
         {
             var userId = User.Identity.GetUserId();
-            var blog = db.Blogs.Where(b => b.Id == id && b.UserId == userId)
+            var blog = Db.Blogs.Where(b => b.Id == id && b.UserId == userId)
                 .Select(b => new BlogStatistics {Id = b.Id, Name = b.Name, Visits = b.Visits, TotalPosts = b.Posts.Count})
                 .FirstOrDefault();
                 
             if (blog == null)
                 return Unauthorized();
 
-            var user = db.Users.Find(userId);
+            var user = Db.Users.Find(userId);
             user.CurrentBlogId = id;
-            db.Entry(user).State = EntityState.Modified;
-            db.SaveChanges();
+            Db.Entry(user).State = EntityState.Modified;
+            Db.SaveChanges();
 
             return Ok(blog);
         }

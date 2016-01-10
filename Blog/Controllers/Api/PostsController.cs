@@ -10,23 +10,24 @@ using System.Text.RegularExpressions;
 using System.Web.Http;
 using System.Web.Http.Description;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Blog.Models;
 using Blog.Utility;
 using Blog.ViewModels;
+using Blog.ViewModels.Api;
 using Microsoft.AspNet.Identity;
 
 namespace Blog.Controllers.Api
 {
     [Authorize]
-    public class PostsController : ApiController
+    public class PostsController : BaseApiController
     {
-        private BlogDbContext db = new BlogDbContext();
 
         // GET: api/Posts
         [AllowAnonymous]
-        public IQueryable<Post> GetPosts()
+        public IQueryable<PostOnList> GetPosts()
         {
-            return db.Posts;
+            return Db.Posts.Where(p => p.BlogId == CurrentBlogId).ProjectTo<PostOnList>();
         }
 
         // GET: api/Posts/5
@@ -34,7 +35,7 @@ namespace Blog.Controllers.Api
         [ResponseType(typeof(Post))]
         public IHttpActionResult GetPost(int id)
         {
-            Post post = db.Posts.Find(id);
+            Post post = Db.Posts.Find(id);
             if (post == null)
             {
                 return NotFound();
@@ -57,11 +58,11 @@ namespace Blog.Controllers.Api
                 return BadRequest();
             }
 
-            db.Entry(post).State = EntityState.Modified;
+            Db.Entry(post).State = EntityState.Modified;
 
             try
             {
-                db.SaveChanges();
+                Db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -95,8 +96,8 @@ namespace Blog.Controllers.Api
             postModel.UrlName = ServerTools.GenerateUrlFriendlyString(postModel.Title);
             //todo create tags
 
-            db.Posts.Add(postModel);
-            db.SaveChanges();
+            Db.Posts.Add(postModel);
+            Db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = post.Id }, post);
         }
@@ -107,14 +108,14 @@ namespace Blog.Controllers.Api
         [ResponseType(typeof(Post))]
         public IHttpActionResult DeletePost(int id)
         {
-            Post post = db.Posts.Find(id);
+            Post post = Db.Posts.Find(id);
             if (post == null)
             {
                 return NotFound();
             }
 
-            db.Posts.Remove(post);
-            db.SaveChanges();
+            Db.Posts.Remove(post);
+            Db.SaveChanges();
 
             return Ok(post);
         }
@@ -123,27 +124,27 @@ namespace Blog.Controllers.Api
         {
             if (disposing)
             {
-                db.Dispose();
+                Db.Dispose();
             }
             base.Dispose(disposing);
         }
 
         private bool PostExists(int id)
         {
-            return db.Posts.Count(e => e.Id == id) > 0;
+            return Db.Posts.Count(e => e.Id == id) > 0;
         }
 
         public User CurrentUser {
             get
             {
-                return db.Users.Find(User.Identity.GetUserId());
+                return Db.Users.Find(User.Identity.GetUserId());
             } 
         }
         public Models.Blog CurrentBlog
         {
             get
             {
-                return db.Blogs.Find(CurrentUser.CurrentBlogId);
+                return Db.Blogs.Find(CurrentUser.CurrentBlogId);
             }
         }
     }

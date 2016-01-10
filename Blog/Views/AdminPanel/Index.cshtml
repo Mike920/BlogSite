@@ -135,12 +135,12 @@ desired effect
                 <ul class="sidebar-menu">
                     <li class="header">HEADER</li>
                     <!-- Optionally, you can add icons to the links -->
-                    <li><a href="BlogSettings/1"><i class="fa fa-link"></i> <span>Blog Settings</span></a></li>
+                    <li><a href="BlogSettings"><i class="fa fa-link"></i> <span>Blog</span></a></li>
                     <li><a href="Dashboard"><i class="fa fa-link"></i> <span>Dashboard</span></a></li>
                     <li class="treeview">
                         <a href="#"><i class="fa fa-link"></i> <span>Posts</span> <i class="fa fa-angle-left pull-right"></i></a>
                         <ul class="treeview-menu">
-                            <li><a href="#">Posts</a></li>
+                            <li><a href="Posts">Posts</a></li>
                             <li><a href="Posts/Add">Add post</a></li>
                         </ul>
                     </li>
@@ -203,27 +203,5 @@ desired effect
 
     @Scripts.Render(Bundles.Js.AngularApp)
 
-@*<script>
-    
-    var setActive = function () {
-        var url = window.location.pathname.replace("/AdminPanel/", "");
-        $(".sidebar-menu a").each(function(e) {
-            if ($(this).attr("href") === url) {
-                $(this).parent().addClass("active");
-            } else {
-                $(this).parent().removeClass("active");
-            }
-        });
-    };
-    window.onhashchange = function () {
-        var a = 4;
-    }
-    setActive();
-</script>*@
-
-<!-- Optionally, you can add Slimscroll and FastClick plugins.
-    Both of these plugins are recommended to enhance the
-    user experience. Slimscroll is required when using the
-    fixed layout. -->
 </body>
 </html>

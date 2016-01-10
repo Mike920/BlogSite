@@ -6,14 +6,14 @@ var app = angular.module('app', ['ngResource', 'ngRoute', 'ui.sortable']);
 app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
 
 
-    $routeProvider.when('/BlogSettings/:id', {
+    $routeProvider.when('/BlogSettings', {
         templateUrl: '/NgPartials/EditBlog',
         controller: 'BlogSettingsCtrl',
         caseInsensitiveMatch: true
     });
     $routeProvider.when('/Posts/', {
         templateUrl: '/NgPartials/Posts',
-        controller: 'PostCtrl',
+        controller: 'PostsCtrl',
         caseInsensitiveMatch: true
     });
     $routeProvider.when('/Posts/Add', {

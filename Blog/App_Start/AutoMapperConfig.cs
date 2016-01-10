@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Blog.Models;
 using Blog.ViewModels;
+using Blog.ViewModels.Api;
 
 namespace Blog
 {
@@ -18,6 +19,8 @@ namespace Blog
             AutoMapper.Mapper.CreateMap<PostCategory, EditPostCategory>();
             AutoMapper.Mapper.CreateMap<CreatePost, Post>();
             AutoMapper.Mapper.CreateMap<User, DisplayUser>();
+            AutoMapper.Mapper.CreateMap<Post, PostOnList>();
+
         }
     }
 }
