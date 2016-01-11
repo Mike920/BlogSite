@@ -56,7 +56,16 @@ namespace Blog.Controllers.Api
                 return BadRequest();
             }
 
-            Db.Entry(post).State = EntityState.Modified;
+            var postDb = Db.Posts.FirstOrDefault(p => p.Id == post.Id && p.BlogId == CurrentBlogId);
+
+            if (postDb == null)
+                return BadRequest("Post not found");
+
+            Mapper.Map(post, postDb);
+            postDb.UrlName = ServerTools.GenerateUrlFriendlyString(postDb.Title);
+
+
+            Db.Entry(postDb).State = EntityState.Modified;
 
             try
             {

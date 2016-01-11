@@ -25,7 +25,7 @@ namespace Blog.ViewModels
 
         [Required]
         [AllowHtml]
-        [MaxLength]
+        [StringLength(4000)]
         public  string Content { get; set; }
 
         [Display(Name = "Publish")]

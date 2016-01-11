@@ -26,7 +26,7 @@ namespace Blog.Models
         public string UrlName { get; set; }
 
         [DataType(DataType.MultilineText)][Required][AllowHtml]
-        [MaxLength]
+        [StringLength(4000)]
         public  string Content { get; set; }
 
         [Display(Name = "Publish")]

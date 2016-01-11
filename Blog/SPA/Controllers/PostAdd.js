@@ -10,8 +10,10 @@ PostAddCtrl.$inject = ['$scope', '$routeParams', 'PostService', 'PostCategorySer
 function PostAddCtrl($scope, $routeParams, PostService, PostCategoryService) {
 
     $scope.loading = true;
+    $scope.title = "Create post";
     var isUpdate = $routeParams.id != null;
     if (isUpdate) {
+        $scope.title = "Edit post";
         PostService.get({ id: $routeParams.id },
             function(model) {
                 $scope.model = model;
