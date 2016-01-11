@@ -19,12 +19,17 @@
                     <tr>
                         <th>Title</th>
                         <th>Date</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="post in posts">
                         <td><a ng-href="/Blog/{{blogId}}/{{post.Id}}/{{post.UrlName}}" target="_blank">{{post.Title}}</a></td>
-                        <td>{{post.PublishDate}}</td>
+                        <td>{{post.PublishDate | date: 'MMM d, y HH:mm'}}</td>
+                        <td>
+                            <a href="Posts/Edit/{{post.Id}}" class="btn-sm btn-success">Edit</a>
+                            <a href="" style="margin-left: 5px;" class="btn-sm btn-danger">Delete</a>
+                        </td>
                     </tr>
                 </tbody>
             </table>

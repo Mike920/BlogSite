@@ -18,6 +18,7 @@ namespace Blog
             AutoMapper.Mapper.CreateMap<EditBlogViewModel, Models.Blog>();
             AutoMapper.Mapper.CreateMap<PostCategory, EditPostCategory>();
             AutoMapper.Mapper.CreateMap<CreatePost, Post>();
+            AutoMapper.Mapper.CreateMap<Post, CreatePost>();
             AutoMapper.Mapper.CreateMap<User, DisplayUser>();
             AutoMapper.Mapper.CreateMap<Post, PostOnList>();
 

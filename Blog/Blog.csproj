@@ -1383,6 +1383,10 @@
     <Compile Include="Migrations\201601061836433_AddUrlSlugs.Designer.cs">
       <DependentUpon>201601061836433_AddUrlSlugs.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201601110029552_PostContentSizeCange.cs" />
+    <Compile Include="Migrations\201601110029552_PostContentSizeCange.Designer.cs">
+      <DependentUpon>201601110029552_PostContentSizeCange.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\LayoutSettings.cs" />
     <Compile Include="Services\BlogsService.cs" />
@@ -1521,6 +1525,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201601061836433_AddUrlSlugs.resx">
       <DependentUpon>201601061836433_AddUrlSlugs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601110029552_PostContentSizeCange.resx">
+      <DependentUpon>201601110029552_PostContentSizeCange.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

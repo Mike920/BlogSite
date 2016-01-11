@@ -21,6 +21,11 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
         controller: 'PostAddCtrl',
         caseInsensitiveMatch: true
     });
+    $routeProvider.when('/Posts/Edit/:id', {
+        templateUrl: '/NgPartials/PostAdd',
+        controller: 'PostAddCtrl',
+        caseInsensitiveMatch: true
+    });
     $routeProvider.when('/Dashboard', {
         templateUrl: '/NgPartials/Dashboard',
         controller: 'DashboardCtrl',

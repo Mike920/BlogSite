@@ -32,16 +32,14 @@ namespace Blog.Controllers.Api
 
         // GET: api/Posts/5
         [AllowAnonymous]
-        [ResponseType(typeof(Post))]
+        [ResponseType(typeof(CreatePost))]
         public IHttpActionResult GetPost(int id)
         {
-            Post post = Db.Posts.Find(id);
+            Post post = Db.Posts.FirstOrDefault(p => p.Id == id && p.BlogId == CurrentBlogId);
             if (post == null)
-            {
                 return NotFound();
-            }
 
-            return Ok(post);
+            return Ok(Mapper.Map<CreatePost>(post));
         }
 
         // PUT: api/Posts/5

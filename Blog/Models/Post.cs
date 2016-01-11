@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +26,7 @@ namespace Blog.Models
         public string UrlName { get; set; }
 
         [DataType(DataType.MultilineText)][Required][AllowHtml]
+        [MaxLength]
         public  string Content { get; set; }
 
         [Display(Name = "Publish")]
