@@ -9,29 +9,20 @@ using Blog.Utility;
 
 namespace Blog.ViewModels
 {
-    public class EditBlogViewModel
+    public class BlogViewModel
     {
         [Required]
         public int Id { get; set; }
 
         [Required]
-        [RemoteValidation("IsBlogNameUniqueOrUnchanged", "Validation", AdditionalFields = "Id")]
         public string Name { get; set; }
 
-        [Display(Name = "Address")]
         [Required]
-        [RemoteValidation("IsBlogUrlUniqueOrUnchanged", "Validation", AdditionalFields = "Id")]
         public string UrlName { get; set; }
 
         [Required]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
-
-        [Required]
-        public int CategoryId { get; set; }
-
-        public string HeaderUrl { get; set; }
-        [Display(Name = "Miniature")]
         public string MiniatureUrl { get; set; }
     }
 }

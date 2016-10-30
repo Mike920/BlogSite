@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Blog.Models.Blog>
+﻿@model IPagedList<Blog.ViewModels.BlogViewModel>
 @using Blog.Utility
 @using PagedList.Mvc;
 @using PagedList;
@@ -33,9 +33,6 @@
                                     @Html.Trim(blog.Name,50)
                                 </a>
                             </h4>
-                            @*                            <p>
-                                desc
-                            </p>*@
                         </figcaption>
                     </figure>
                 </div>
@@ -44,4 +41,4 @@
     </div>
 </section>
 
-@Html.PagedListPager((IPagedList)Model, page => Url.Action(ViewBag.Action, new { page }), new PagedListRenderOptions { Display = PagedListDisplayMode.IfNeeded })
+@Html.PagedListPager(Model, page => Url.Action(ViewBag.Action, new { page }), new PagedListRenderOptions { Display = PagedListDisplayMode.IfNeeded })

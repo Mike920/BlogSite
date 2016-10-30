@@ -449,11 +449,13 @@
     <Content Include="MediaData\Blogs\dummy">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Properties\PublishProfiles\Somee.pubxml" />
     <Content Include="Scripts\Jcrop\Jcrop.gif" />
     <Content Include="Scripts\Jcrop\jquery.color.js" />
     <Content Include="Scripts\Jcrop\jquery.Jcrop.css" />
     <Content Include="Scripts\Jcrop\jquery.Jcrop.js" />
+    <None Include="Scripts\_references.js" />
     <Content Include="SPA\Controllers\Menu.js" />
     <Content Include="SPA\Controllers\Appearance.js" />
     <Content Include="SPA\Controllers\Header.js" />
@@ -1408,6 +1410,7 @@
     <Compile Include="ViewModels\Api\Posts.cs" />
     <Compile Include="ViewModels\Blog\CreateBlogViewModel.cs" />
     <Compile Include="ViewModels\Blog\DisplayBlog.cs" />
+    <Compile Include="ViewModels\Blog\BlogViewModel.cs" />
     <Compile Include="ViewModels\Blog\EditBlogViewModel.cs" />
     <Compile Include="ViewModels\Blog\EditBlogHeader.cs" />
     <Compile Include="ViewModels\Blog\RecentPostsViewModel.cs" />

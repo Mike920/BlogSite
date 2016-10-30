@@ -13,6 +13,8 @@ namespace Blog
     {
         public static void RegisterMappings()
         {
+            AutoMapper.Mapper.CreateMap< Models.Blog,BlogViewModel>();
+            AutoMapper.Mapper.CreateMap<BlogViewModel, Models.Blog>();
             AutoMapper.Mapper.CreateMap<CreateBlogViewModel, Models.Blog>();
             AutoMapper.Mapper.CreateMap<Models.Blog, EditBlogViewModel>();
             AutoMapper.Mapper.CreateMap<EditBlogViewModel, Models.Blog>();

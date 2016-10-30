@@ -115,11 +115,13 @@ namespace Blog.Controllers.Api
         [ResponseType(typeof(Post))]
         public IHttpActionResult DeletePost(int id)
         {
-            Post post = Db.Posts.Find(id);
+            Post post = Db.Posts.SingleOrDefault(p => p.Id == id && p.BlogId == CurrentBlogId);
+            
             if (post == null)
             {
                 return NotFound();
             }
+
 
             Db.Posts.Remove(post);
             Db.SaveChanges();

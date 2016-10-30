@@ -11,10 +11,11 @@ using System.Web.Http.Description;
 using Blog.Models;
 using Blog.Services;
 using Microsoft.AspNet.Identity;
+using System.Web.Mvc;
 
 namespace Blog.Controllers.Api
 {
-    [Authorize]
+    [System.Web.Mvc.Authorize]
     public class LayoutSettingsController : ApiController
     {
         private BlogDbContext db = new BlogDbContext();
@@ -44,16 +45,12 @@ namespace Blog.Controllers.Api
 
         // PUT: api/LayoutSettings/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutLayoutSettings(int id, LayoutSettings layoutSettings)
+        public IHttpActionResult PutLayoutSettings([Bind(Include = "WidgetsColumnSide,WidgetList")] LayoutSettings layoutSettings)
         {
+            layoutSettings.Id = CurrentUser.CurrentBlogId.Value;
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
-            }
-
-            if (id != layoutSettings.Id)
-            {
-                return BadRequest();
             }
 
             db.Entry(layoutSettings).State = EntityState.Modified;
@@ -64,7 +61,7 @@ namespace Blog.Controllers.Api
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!LayoutSettingsExists(id))
+                if (!LayoutSettingsExists(layoutSettings.Id))
                 {
                     return NotFound();
                 }
@@ -140,7 +137,7 @@ namespace Blog.Controllers.Api
       
         public User CurrentUser
         {
-            [Authorize]
+            [System.Web.Mvc.Authorize]
             get
             {
                 return db.Users.Find(User.Identity.GetUserId());

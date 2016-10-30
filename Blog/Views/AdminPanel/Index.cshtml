@@ -77,6 +77,8 @@ desired effect
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
                         <!-- Messages: style can be found in dropdown.less-->
+                        <li style="background-color:rgb(30, 120, 173); margin-right:2px;">@Html.ActionLink("Create Blog", "Create", "Blog")</li>
+
                         <li style="background-color:rgb(30, 120, 173);">@Html.ActionLink("View Blog","ActiveBlog","Blogs",null,new {target="_blank"})</li>
                         <!-- User Account Menu -->
                         <li class="dropdown user user-menu">
@@ -87,7 +89,7 @@ desired effect
                                 <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
                                 *@
                                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                                <span class="hidden-xs">{{user.Email}}</span>
+                                <span class="hidden-xs">{{user.Email}}<span class="caret" style="border-top-color:white;"></span></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- The user image in the menu -->
@@ -135,13 +137,14 @@ desired effect
                 <ul class="sidebar-menu">
                     <li class="header">HEADER</li>
                     <!-- Optionally, you can add icons to the links -->
-                    <li><a href="BlogSettings"><i class="fa fa-link"></i> <span>Blog</span></a></li>
                     <li><a href="Dashboard"><i class="fa fa-link"></i> <span>Dashboard</span></a></li>
+                    <li><a href="BlogSettings"><i class="fa fa-link"></i> <span>Blog</span></a></li>
                     <li class="treeview">
                         <a href="#"><i class="fa fa-link"></i> <span>Posts</span> <i class="fa fa-angle-left pull-right"></i></a>
                         <ul class="treeview-menu">
                             <li><a href="Posts">Posts</a></li>
                             <li><a href="Posts/Add">Add post</a></li>
+                            <li><a href="#">Categories</a></li>
                         </ul>
                     </li>
                     <li class="treeview">
@@ -163,7 +166,6 @@ desired effect
         <footer class="main-footer">
             <!-- To the right -->
             <div class="pull-right hidden-xs">
-                Anything you want
             </div>
             <!-- Default to the left -->
             <strong>Copyright &copy; 2015 <a href="#">Company</a>.</strong> All rights reserved.

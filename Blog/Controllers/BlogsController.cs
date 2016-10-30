@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AutoMapper.QueryableExtensions;
 using Blog.Models;
 using Blog.Services;
+using Blog.ViewModels;
 using Microsoft.AspNet.Identity;
 using PagedList;
 
@@ -28,12 +30,10 @@ namespace Blog.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult Index(int page = 1)
+        public ActionResult Index()
         {
-           // var blogs = db.Blogs; //MyProductDataSource.FindAllProducts(); //returns IQueryable<Product> representing an unknown number of products. a thousand maybe?
-
-            var blogs = db.Blogs.OrderBy(b => b.Visits).Take(12).ToPagedList(page, postsPerPage); // will only contain 25 products max because of the pageSize
-
+            var blogs = db.Blogs.OrderBy(b => b.Visits).Take(postsPerPage).ProjectTo<BlogViewModel>()
+                .ToPagedList(1, postsPerPage);
 
             return View(blogs);
         }
@@ -41,12 +41,9 @@ namespace Blog.Controllers
         [AllowAnonymous]
         public ActionResult Category(string id, int page = 1)
         {
-            IEnumerable<Models.Blog> blogs;
+            IQueryable<Models.Blog> blogs = db.Blogs.OrderBy(b => b.Name);
             if (id == null)
-            {
-                blogs = db.Blogs.OrderBy(b => b.Name).ToPagedList(page, postsPerPage);
                 ViewBag.Header = "All blogs";
-            }
             else
             {
                 var cat = db.BlogCategories.FirstOrDefault(c => c.UrlSlug == id);
@@ -54,15 +51,14 @@ namespace Blog.Controllers
                 if (cat == null)
                     return HttpNotFound();
 
-                blogs = db.Blogs.Where(b => b.Category.UrlSlug == id)
-                    .OrderBy(b => b.Name)
-                    .ToPagedList(page, postsPerPage);
+                blogs = blogs.Where(b => b.Category.UrlSlug == id);
 
                 ViewBag.Header = cat.Name + " blogs";
             }
 
+            var viewModel = blogs.ProjectTo<BlogViewModel>().ToPagedList(page, postsPerPage);
             ViewBag.Action = "Category";
-            return View("Index",blogs);
+            return View("Index", viewModel);
         }
 
         public ActionResult ActiveBlog()

@@ -35,7 +35,36 @@ function LayoutCtrl($scope, $routeParams, LayoutSettingsService,UserService) {
             $scope.loading = false;
         });
 
+    $scope.submit = function () {
+        $scope.loading = true;
 
+        $scope.model.Widgets = "";
+        $($scope.model.WidgetList).each(function (i, val1) {
+            $scope.model.Widgets += val1 + ';';
+        });
+
+        LayoutSettingsService.update( $scope.model,
+            function (success) {
+                $scope.status = { msg: "Changes have been saved.", clas: "alert-success" };
+               
+                $scope.loading = false;
+            },
+            function (error) {
+                if (error.status === 400) { //validation error
+                    var ms = error.data.ModelState;
+                    // Display validation errors
+                    $(Object.keys(ms)).each(function (index, key) {
+                        var val = key.split('.').pop();
+                        var errorSpan = $("span[data-valmsg-for='" + val + "']");
+                        errorSpan.html("<span style='color:#b94a48'>" + ms[key][0] + "</span>");
+                        errorSpan.show();
+                    });
+                    $scope.loading = false;
+                } else {
+                    $scope.status = { mgs: "Error.", clas: "alert-error" };
+                }
+            });
+    };
 
     $scope.sortableOptions = {
         placeholder: "app",

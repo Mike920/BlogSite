@@ -1,9 +1,10 @@
 ﻿@model Blog.ViewModels.EditBlogViewModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit blog";
 }
 
+@*
 <h2>Edit</h2>
 
 <form id="upload-form"   novalidate="novalidate">
@@ -48,9 +49,6 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CategoryId, "CategoryId", htmlAttributes: new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                @*
-                    @Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control" })
-                *@
                 @Html.EditorFor(model => model.CategoryId, new {htmlAttributes = new {@class = "form-control"}})
                 @Html.ValidationMessageFor(model => model.CategoryId, "", new {@class = "text-danger"})
             </div>
@@ -64,10 +62,205 @@
         </div>
     </div>
 </form>
+*@
+
+
+<section class="content-header">
+    <h1>
+        @ViewBag.Title
+    </h1>
+</section>
+
+<section class="content">
+    <div class="box box-primary">
+        <form id="upload-form" novalidate="novalidate" class="form-horizontal">
+            <div class="box-body ">
+                <div class="col-md-6">
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Id)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UrlName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.UrlName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.UrlName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.MiniatureUrl, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                        @*<div class="col-md-10">
+                            @Html.EditorFor(model => model.MiniatureUrl, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.MiniatureUrl, "", new { @class = "text-danger" })
+                        </div>*@
+                        <div class="col-md-10" ng-hide="model.changeMiniature">
+                            <img ng-src="{{model.MiniatureUrl}}" alt="" style="width:255px; height:212px;" />
+                            <button class="form-control btn btn-default" ng-click="model.changeMiniature = true" style=" width: 255px;">Change</button>
+                        </div>
+                        <div class="col-md-10" ng-show="model.changeMiniature">
+                            <span class="text-info">Miniature dimensions should be 360x300px, otherwise it will be resized.</span>
+                            @Html.HiddenFor(model => model.MiniatureUrl, htmlAttributes: new { ng_value = "model.MiniatureUrl" })
+                            @Html.ValidationMessageFor(model => model.MiniatureUrl, "", new { @class = "text-danger" })
+                            <div id="uploader">
+                                <p>Your browser doesn't have Flash, Silverlight or HTML5 support.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CategoryId, "CategoryId", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @*
+                            @Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control" })
+                            *@
+                            @Html.EditorFor(model => model.CategoryId, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input id="submit" type="button" ng-disabled="loading" ng-click="submit()" value="Save" class="btn btn-default" />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
 
 @Scripts.Render(Bundles.Js.JqueryVal)
 @Scripts.Render(Bundles.Js.AutoNgModel)
-@*<script>
-    //disable ignoring validation of id field
-    $("#upload-form").validate().settings.ignore = ":hidden:not([id*=Id])";
-</script>*@
+
+
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/themes/base/jquery-ui.css" type="text/css" />
+    <link href="~/Scripts/plupload/jquery.ui.plupload/css/jquery.ui.plupload.css" rel="stylesheet" />
+
+    @Scripts.Render(Bundles.Js.JqueryUi)
+    @Scripts.Render(Bundles.Js.Plupload)
+
+    <script type="text/javascript">
+
+       // var scope = angular.element($('#uploader')).scope();
+        //Enable validation of hidden fields
+        $.validator.setDefaults({
+            ignore: []
+        });
+
+        // Initialize the widget when the DOM is ready
+        $(function () {
+            var filesNames = [];
+            var fileSelected = ($('#MiniatureUrl').val() == "") ? false : true;
+
+            var uploader = $("#uploader").plupload({
+                // General settings
+                runtimes: 'html5,flash,silverlight,html4',
+                url: "/File/UploadTempFile",
+
+                // Maximum file size
+                max_file_size: '4mb',
+                max_file_count: 1,
+                multi_selection: false,
+                //chunk_size: '1mb',
+
+                // Resize images on clientside if we can
+                resize: {
+                    width: 360,
+                    height: 300,
+                    quality: 100,
+                    crop: true // crop to exact dimensions
+                },
+
+                // Specify what files to browse for
+                filters: [
+                    { title: "Image files", extensions: "jpg,gif,png" }
+                ],
+
+                // Rename files by clicking on their titles
+                rename: true,
+
+                // Sort files
+                sortable: true,
+
+                // Enable ability to drag'n'drop files onto the widget (currently only HTML5 supports that)
+                dragdrop: true,
+
+                // Views to activate
+                views: {
+                    list: true,
+                    thumbs: true, // Show thumbs
+                    active: 'thumbs'
+                },
+
+                // Flash settings
+                flash_swf_url: "~/Scripts/plupload/Moxie.swf",
+                // Silverlight settings
+                silverlight_xap_url: "~/Scripts/plupload/js/Moxie.xap",
+
+                init: {
+                    FilesAdded: function () {
+                        $('#MiniatureUrl').val('ok');
+                        $('#MiniatureUrl').valid();
+                        fileSelected = true;
+                    },
+                    FilesRemoved: function (up) {
+                        $('#MiniatureUrl').val('');
+                        if (up.files.length == 0) {
+                            fileSelected = false;
+                        }
+                    },
+                    FileUploaded: function (up, file, info) {
+                        var response = $.parseJSON(info.response);
+                        //filesNames = filesNames.concat(response);
+                        $('#MiniatureUrl').val(response[0]);
+                        $('#MiniatureUrl').valid();
+
+                        $('#upload-form').submit();
+                    }
+                },
+                buttons: { browse: true, start: false, stop: false }
+
+            });
+
+            //scope.uploader = uploader;
+            
+            
+            //customize upload button behavior
+            $('#submitUpload').click(function () {
+                var $form = $('#upload-form');
+                if ($form.valid()) {
+                    $('#submitUpload').val('Sending...');
+                    $('#submitUpload').attr("disabled", true);
+                    if (fileSelected) {
+                        $("#uploader").plupload('start');
+                    } else {
+                        $('#upload-form').submit();
+                    }
+
+                }
+            });
+
+        });
+        //@@ sourceURL=debugScript.js
+    </script>
+
