@@ -64,3 +64,6 @@ border-radius: 6px;
     display: block;
 }
 
+.box-body{
+    padding-top:30px;
+}

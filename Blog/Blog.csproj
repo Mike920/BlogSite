@@ -460,6 +460,7 @@
     <Content Include="SPA\Controllers\Appearance.js" />
     <Content Include="SPA\Controllers\Header.js" />
     <Content Include="SPA\Controllers\Posts.js" />
+    <Content Include="SPA\Services\BlogCategoryService.js" />
     <Content Include="SPA\Services\DashboardService.js" />
     <Content Include="Views\NgPartials\EditHeader.cshtml" />
     <Content Include="Views\Blogs\Index.cshtml" />
@@ -1350,6 +1351,7 @@
     <Compile Include="Controllers\Api\CurrentUserController.cs" />
     <Compile Include="Controllers\Api\DashboardController.cs" />
     <Compile Include="Controllers\Api\LayoutSettingsController.cs" />
+    <Compile Include="Controllers\Api\BlogCategoriesController.cs" />
     <Compile Include="Controllers\Api\PostCategoriesController.cs" />
     <Compile Include="Controllers\Api\PostsController.cs" />
     <Compile Include="Controllers\Blog2Controller.cs" />
@@ -1408,6 +1410,7 @@
     <Compile Include="ViewModels\AdminViewModel.cs" />
     <Compile Include="ViewModels\Api\DashboardViewModel.cs" />
     <Compile Include="ViewModels\Api\Posts.cs" />
+    <Compile Include="ViewModels\BlogCategory\EditBlogCategory.cs" />
     <Compile Include="ViewModels\Blog\CreateBlogViewModel.cs" />
     <Compile Include="ViewModels\Blog\DisplayBlog.cs" />
     <Compile Include="ViewModels\Blog\BlogViewModel.cs" />

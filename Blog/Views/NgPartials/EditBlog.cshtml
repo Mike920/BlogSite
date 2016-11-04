@@ -99,7 +99,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", style = "height:150px" } })
                             @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -113,7 +113,7 @@
                         </div>*@
                         <div class="col-md-10" ng-hide="model.changeMiniature">
                             <img ng-src="{{model.MiniatureUrl}}" alt="" style="width:255px; height:212px;" />
-                            <button class="form-control btn btn-default" ng-click="model.changeMiniature = true" style=" width: 255px;">Change</button>
+                            <button class="form-control btn btn-default" ng-click="model.changeMiniature = true" style="width: 255px; display:block">Change</button>
                         </div>
                         <div class="col-md-10" ng-show="model.changeMiniature">
                             <span class="text-info">Miniature dimensions should be 360x300px, otherwise it will be resized.</span>
@@ -131,7 +131,12 @@
                             @*
                             @Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control" })
                             *@
-                            @Html.EditorFor(model => model.CategoryId, new { htmlAttributes = new { @class = "form-control" } })
+                           @* @Html.EditorFor(model => model.CategoryId, new { htmlAttributes = new { @class = "form-control" } })*@
+                            <select ng-options="cat.Id as cat.Name  for cat in blogCategories" class="form-control" data-val="true" data-val-number="The field CategoryId must be a number." data-val-required="Pole CategoryId jest wymagane." 
+                                    id="CategoryId" name="CategoryId"></select>
+                            @*<select  class="form-control" data-val="true" data-val-number="The field CategoryId must be a number." data-val-required="Pole CategoryId jest wymagane." id="CategoryId" name="CategoryId">
+                                <option ng-repeat="cat in blogCategories" value="{{cat.Id}}">{{cat.Name}}</option>
+                            </select>*@
                             @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
                         </div>
                     </div>

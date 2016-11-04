@@ -4,10 +4,10 @@ angular
     .module('app')
     .controller('BlogSettingsCtrl', BlogSettingsCtrl);
 
-BlogSettingsCtrl.$inject = ['$scope', '$routeParams', 'BlogService'];
+BlogSettingsCtrl.$inject = ['$scope', '$routeParams', 'BlogService', 'BlogCategoryService'];
 
 
-function BlogSettingsCtrl($scope, $routeParams, BlogService) {
+function BlogSettingsCtrl($scope, $routeParams, BlogService, BlogCategoryService) {
 
     $scope.loading = true;
 
@@ -22,6 +22,18 @@ function BlogSettingsCtrl($scope, $routeParams, BlogService) {
             $('#upload-form').prepend(status);
             $scope.loading = false;
         });
+
+    BlogCategoryService.query(
+        function (model) {
+            $scope.blogCategories = model;
+            //$scope.loading = false;
+        },
+        function (error) {
+            $('#statusBox').remove();
+            var status = $('<div id="statusBox" class="alert alert-error" role="alert">Connection error.</div>').hide().fadeIn('normal');
+            $('#upload-form').prepend(status);
+            $scope.loading = false;
+    });
 
     $scope.submit = function () {
         if ($('#upload-form').valid()) {

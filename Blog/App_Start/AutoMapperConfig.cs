@@ -23,6 +23,7 @@ namespace Blog
             AutoMapper.Mapper.CreateMap<Post, CreatePost>();
             AutoMapper.Mapper.CreateMap<User, DisplayUser>();
             AutoMapper.Mapper.CreateMap<Post, PostOnList>();
+            AutoMapper.Mapper.CreateMap<BlogCategory, EditBlogCategory>();
 
         }
     }
