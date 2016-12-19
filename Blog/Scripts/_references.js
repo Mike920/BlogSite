@@ -3,6 +3,7 @@
 /// <reference path="AdminPanel/demo.js" />
 /// <reference path="AdminPanel/pages/dashboard.js" />
 /// <reference path="AdminPanel/pages/dashboard2.js" />
+/// <reference path="ag-grid.js" />
 /// <reference path="angular/angular.js" />
 /// <reference path="angular/angular-animate.js" />
 /// <reference path="angular/angular-aria.js" />

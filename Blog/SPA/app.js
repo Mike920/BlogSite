@@ -1,7 +1,7 @@
 ﻿(function () {
 'use strict';
 
-var app = angular.module('app', ['ngResource', 'ngRoute', 'ui.sortable']);
+var app = angular.module('app', ['ngResource', 'ngRoute', 'ui.sortable', 'agGrid']);
 
 app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
 
