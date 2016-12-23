@@ -192,7 +192,9 @@ desired effect
 
 <!-- REQUIRED JS SCRIPTS -->
     <!-- jQuery 2.1.4 -->
-    @Scripts.Render(Bundles.Js.Jquery)
+        @Scripts.Render(Bundles.Js.Jquery)
+        <script src="//cdn.datatables.net/1.10.13/js/jquery.dataTables.js"></script>
+        <link href="//cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" rel="stylesheet" />
     @Scripts.Render(Bundles.Js.JqueryUi)
     <!-- Bootstrap 3.3.5 -->
     @Scripts.Render(Bundles.Js.Bootstrap)
@@ -202,6 +204,10 @@ desired effect
     @Scripts.Render(Bundles.Js.AngularRoute)
     @Scripts.Render(Bundles.Js.AngularResource)
     @Scripts.Render(Bundles.Js.AngularSortable)
+
+    <script src="~/Scripts/angular-datatables.js"></script>
+    <link href="~/Content/angular-datatables.css" rel="stylesheet" />
+    
 
     @Scripts.Render(Bundles.Js.AngularApp)
 

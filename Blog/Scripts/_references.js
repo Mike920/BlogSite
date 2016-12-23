@@ -17,6 +17,7 @@
 /// <reference path="angular/angular-scenario.js" />
 /// <reference path="angular/angular-touch.js" />
 /// <reference path="angular/ui-sortable.js" />
+/// <reference path="angular-datatables.js" />
 /// <reference path="autoNgModel.js" />
 /// <reference path="bootstrap.js" />
 /// <reference path="Jcrop/jquery.color.js" />

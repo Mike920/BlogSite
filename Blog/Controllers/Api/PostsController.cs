@@ -25,9 +25,13 @@ namespace Blog.Controllers.Api
 
         // GET: api/Posts
         [AllowAnonymous]
-        public IQueryable<PostOnList> GetPosts()
+        public PostList GetPosts()
         {
-            return Db.Posts.Where(p => p.BlogId == CurrentBlogId).ProjectTo<PostOnList>();
+            return new PostList
+            {
+                BlogId = CurrentBlogId.Value,
+                Posts = Db.Posts.Where(p => p.BlogId == CurrentBlogId).ProjectTo<PostOnList>()
+            };
         }
 
         // GET: api/Posts/5
