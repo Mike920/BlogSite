@@ -68,23 +68,23 @@ function PostsCtrl($scope, $routeParams, PostService, UserService, $filter) {
     //    });
     //PostService.query();
 
-    $scope.gridOptions = {
-        enableSorting: true,
-        columnDefs: [
-          {
-              name: 'Title', field: 'Link',  width: '600', height:'*',
-              cellTemplate: '<a ng-href="{{row.entity.Link}}" target="_blank">{{row.entity.Title}}</a>'
-          },
-          { name: 'Date', field: 'PublishDate' },
-          {
-              name: 'Actions',
-              cellTemplate: '<a href="Posts/Edit/{{row.entity.Id}}" class="btn-sm btn-success">Edit</a>'
-                  + '<a href="" style="margin-left: 5px;" class="btn-sm btn-danger">Delete</a>'
-          }
+    //$scope.gridOptions = {
+    //    enableSorting: true,
+    //    columnDefs: [
+    //      {
+    //          name: 'Title', field: 'Link',  width: '600', height:'*',
+    //          cellTemplate: '<a ng-href="{{row.entity.Link}}" target="_blank">{{row.entity.Title}}</a>'
+    //      },
+    //      { name: 'Date', field: 'PublishDate' },
+    //      {
+    //          name: 'Actions',
+    //          cellTemplate: '<a href="Posts/Edit/{{row.entity.Id}}" class="btn-sm btn-success">Edit</a>'
+    //              + '<a href="" style="margin-left: 5px;" class="btn-sm btn-danger">Delete</a>'
+    //      }
           //{ name: '1stFriend', field: 'friends[0]' },
           //{ name: 'city', field: 'address.city' },
           //{ name: 'getZip', field: 'getZip()', enableCellEdit: false }
-        ],
+        //],
         //data: [{
         //    //"first-name": "Cox",
         //    //"friends": ["friend0"],
@@ -94,8 +94,8 @@ function PostsCtrl($scope, $routeParams, PostService, UserService, $filter) {
         //    "Title": function () { return "/Blog/" + $scope.blogId+ "/" +this.Id + "/" + this.UrlName; }
         //}
         //]
-    };
-
+    //};
+    
     $scope.submit = function () {
         if ($('#upload-form').valid()) {
             $scope.loading = true;

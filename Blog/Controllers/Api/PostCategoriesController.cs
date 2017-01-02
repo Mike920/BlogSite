@@ -12,44 +12,38 @@ using AutoMapper.QueryableExtensions;
 using Blog.Models;
 using Blog.ViewModels;
 using Microsoft.AspNet.Identity;
+using AutoMapper;
+using Blog.Utility;
 
 namespace Blog.Controllers.Api
 {
     [Authorize]
-    public class PostCategoriesController : ApiController
+    public class PostCategoriesController : BaseApiController
     {
-        private BlogDbContext db = new BlogDbContext();
-
-        public string CurrentUserId { get; set; }
-
-        public PostCategoriesController()
-        {
-            CurrentUserId = User.Identity.GetUserId();
-        }
+       
         // GET: api/PostCategories
         public IQueryable<EditPostCategory> GetPostCategories()
         {
-            var blogId = db.Blogs.FirstOrDefault(blog => blog.UserId == CurrentUserId).Id;
-
-            return db.PostCategories.Where(p => p.BlogId == blogId).ProjectTo<EditPostCategory>();
+            var blogId = CurrentBlogId;
+            return Db.PostCategories.Where(p => p.BlogId == blogId).ProjectTo<EditPostCategory>();
         }
 
         // GET: api/PostCategories/5
         [ResponseType(typeof(PostCategory))]
         public IHttpActionResult GetPostCategory(int id)
         {
-            PostCategory postCategory = db.PostCategories.Find(id);
+            PostCategory postCategory = Db.PostCategories.Where(p => p.Id == id && p.BlogId == CurrentBlogId.Value).FirstOrDefault();
             if (postCategory == null)
             {
                 return NotFound();
             }
 
-            return Ok(postCategory);
+            return Ok(Mapper.Map<EditPostCategory>(postCategory));
         }
 
         // PUT: api/PostCategories/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutPostCategory(int id, PostCategory postCategory)
+        public IHttpActionResult PutPostCategory(int id, EditPostCategory postCategory)
         {
             if (!ModelState.IsValid)
             {
@@ -61,11 +55,19 @@ namespace Blog.Controllers.Api
                 return BadRequest();
             }
 
-            db.Entry(postCategory).State = EntityState.Modified;
+            var postDb = Db.PostCategories.Where(p => p.Id == postCategory.Id && p.BlogId == CurrentBlogId).FirstOrDefault();
+
+            if (postDb == null)
+                return BadRequest("Post not found");
+
+            Mapper.Map(postCategory, postDb);
+            postDb.UrlSlug = ServerTools.GenerateUrlFriendlyString(postCategory.Name);
+
+            Db.Entry(postDb).State = EntityState.Modified;
 
             try
             {
-                db.SaveChanges();
+                Db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -90,9 +92,10 @@ namespace Blog.Controllers.Api
             {
                 return BadRequest(ModelState);
             }
-
-            db.PostCategories.Add(postCategory);
-            db.SaveChanges();
+            postCategory.BlogId = CurrentBlogId.Value;
+            postCategory.UrlSlug = ServerTools.GenerateUrlFriendlyString(postCategory.Name);
+            Db.PostCategories.Add(postCategory);
+            Db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = postCategory.Id }, postCategory);
         }
@@ -101,14 +104,13 @@ namespace Blog.Controllers.Api
         [ResponseType(typeof(PostCategory))]
         public IHttpActionResult DeletePostCategory(int id)
         {
-            PostCategory postCategory = db.PostCategories.Find(id);
+            PostCategory postCategory = Db.PostCategories.Where(p => p.Id == id && p.BlogId == CurrentBlogId.Value).FirstOrDefault();
             if (postCategory == null)
-            {
                 return NotFound();
-            }
+            
 
-            db.PostCategories.Remove(postCategory);
-            db.SaveChanges();
+            Db.PostCategories.Remove(postCategory);
+            Db.SaveChanges();
 
             return Ok(postCategory);
         }
@@ -117,14 +119,14 @@ namespace Blog.Controllers.Api
         {
             if (disposing)
             {
-                db.Dispose();
+                Db.Dispose();
             }
             base.Dispose(disposing);
         }
 
         private bool PostCategoryExists(int id)
         {
-            return db.PostCategories.Count(e => e.Id == id) > 0;
+            return Db.PostCategories.Count(e => e.Id == id) > 0;
         }
     }
 }

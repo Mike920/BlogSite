@@ -15,7 +15,7 @@
 
         <form id="upload-form" novalidate="novalidate">
             <div class="box-body">
-                <div class="form-horizontal">
+                <div class="form-horizontal col-md-6">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="form-group">
                         @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })

@@ -37,5 +37,15 @@ namespace Blog.Controllers
         {
             return View();
         }
+
+        public ActionResult Categories()
+        {
+            return View();
+        }
+
+        public ActionResult CategoryAdd()
+        {
+            return View();
+        }
     }
 }

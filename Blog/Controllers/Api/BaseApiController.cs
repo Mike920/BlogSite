@@ -18,25 +18,28 @@ namespace Blog.Controllers.Api
             get { return db; }
             set { db = value; }
         }
-        
 
+
+        private string currentUserId = null;
         public string CurrentUserId
         {
             get
             {
-                return User.Identity.GetUserId();
+                return currentUserId ?? (currentUserId = User.Identity.GetUserId());
             }
         }
 
+        private int? currentBlogId = null;
         public int? CurrentBlogId
         {
             get
             {
-                if (CurrentUserId == null)
-                    return null;
-                return db.Users.Where(u => u.Id == CurrentUserId)
-                        .Select(u => u.CurrentBlogId)
-                        .SingleOrDefault();
+                return currentBlogId ?? (
+                            CurrentUserId == null ? null :
+                            currentBlogId = db.Users.Where(u => u.Id == CurrentUserId)
+                            .Select(u => u.CurrentBlogId)
+                            .SingleOrDefault()
+                    );
             }
         }
     }

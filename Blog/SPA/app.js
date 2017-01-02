@@ -41,6 +41,21 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
         controller: 'HeaderCtrl',
         caseInsensitiveMatch: true
     });
+    $routeProvider.when('/Categories/', {
+        templateUrl: '/NgPartials/Categories',
+        controller: 'CategoriesCtrl',
+        caseInsensitiveMatch: true
+    });
+    $routeProvider.when('/Categories/Add', {
+        templateUrl: '/NgPartials/CategoryAdd',
+        controller: 'CategoryAddCtrl',
+        caseInsensitiveMatch: true
+    });
+    $routeProvider.when('/Categories/Edit/:id', {
+        templateUrl: '/NgPartials/CategoryAdd',
+        controller: 'CategoryAddCtrl',
+        caseInsensitiveMatch: true
+    });
     $routeProvider.otherwise({
         redirectTo: '/Dashboard'
     });
